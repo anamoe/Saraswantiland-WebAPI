@@ -1,11 +1,11 @@
-Sidebar -->
-<div class="sidebar sidebar-style-2">			
+
+<div class="sidebar  sidebar-style-2">			
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
     
             <ul class="nav nav-primary">
 
-                <li class="nav-item {{ (request()->is('/') || request()->is('progresskelompok*')||request()->is('showbio')) ? 'active' : '' }}">
+                <li class="nav-item">
                     <a data-toggle="collapse" href="#pp" class="collapsed" aria-expanded="false">
 						      
                     <img class="" src="{{asset('public/icon/rumah.png')}}" alt="User Avatar " style=" height:20px; width:20px;">
@@ -13,12 +13,13 @@ Sidebar -->
 						
 						<span class="caret"></span>
 					</a>
+                
 
 					<div class="collapse" id="pp">
 					    
 					<ul class="nav nav-collapse">
 						<li class="{{ (request()->is('/')) ? '' : 'active' }}">
-                            <a href="{{url('/')}}" class="collapsed" aria-expanded="false">
+                            <a href="{{url('/ikhtisar')}}" class="collapsed" aria-expanded="false">
                             <img class="" src="{{asset('public/icon/ikhtisar.png')}}" alt="User Avatar " style=" height:20px; width:20px;">
                      <span class="ml-3 item-text">Ikhtisar Perusahaan</span>
 						
@@ -91,15 +92,12 @@ Sidebar -->
                     </div>
 
                     
-
-
                 </li>
            
 
 
             </ul>
-
+        </div>
 
     </div>
 </div>
-<!-- End Sidebar

@@ -18,6 +18,21 @@
 <link rel="stylesheet" href="{{asset('public/template/assets/css/bootstrap.min.css')}}">
 <link rel="stylesheet" href="{{asset('public/template/assets/css/atlantis.min.css')}}">
 <link rel="stylesheet" href="{{asset('public/template/assets/css/custom.css')}}">
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{asset('public/template/assets/css/summernote-audio.css')}}">
+
+<style>
+    .modal-dialog{
+        max-width:1000px;
+    }
+    .note-group-select-from-files{
+        display: none;
+    }
 
 
+
+    .imagemedia img{
+        cursor:pointer;
+    }
+</style>
 @yield('css')

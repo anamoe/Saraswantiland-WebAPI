@@ -42,33 +42,15 @@
 
 {{-- <script src="{{asset('public/template/assets/js/demo.js')}}"></script> --}}
 
+
+<script src="{{asset('public/template/assets/js/axios.min.js')}}"></script>
+
+<script src="{{asset('public/template/assets/js/summernote.js')}}"></script>
+<script type="text/javascript" src="{{asset('public/template/assets/js/summernote-audio.js')}}"></script>
+
 <script>
     
-    function cekBioBaru(){
-		if($("#uploadimagefilebio").val()=="" || $("#namabio").val()==""){
-		$(".kirimbio").attr('disabled',true)
-		}else{
-			$(".kirimbio").attr('disabled',false)
-		}
-	}
-	
-
-
-	function readURLBIO(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-			$('.upimagebio').removeClass('d-none').addClass('d-none').removeClass('d-block')
-			$('#img-uploadbio').removeClass('d-block').addClass('d-block').removeClass('d-none')
-
-            reader.onload = function (e) {
-                $('#img-uploadbio')
-                    .attr('src', e.target.result);
-            };
-
-            reader.readAsDataURL(input.files[0]);
-        }
-		cekBioBaru()
-    }
+   
     
 </script>
 @yield('js')

@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ 'Kaizen education' }}</title>
+    <title>{{ 'S' }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('public/js/app.js') }}" defer></script>

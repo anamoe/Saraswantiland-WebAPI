@@ -14,8 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
 });
 Route::get('/tes',function(){
     return view('dashboard');
 });
+Route::get('/produk',function(){
+    return view('profil.produk.index');
+});
+
+
+
