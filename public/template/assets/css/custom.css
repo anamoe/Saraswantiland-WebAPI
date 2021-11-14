@@ -1,0 +1,37 @@
+.progressavatar{
+    margin-top: -17px;
+    margin-bottom: 12px;
+}
+
+.materi .card-body:hover {
+    margin-top:-5px; 
+    background: rgba(247, 247, 247, 0.879) !important;
+}
+
+.materi .card-body:hover{
+    text-decoration: none;
+}
+
+.materi .card-body .fa:hover{
+    cursor:pointer;
+}
+
+.panel-header h2 a:hover{
+    color:rgb(234, 235, 205);
+    text-decoration: none;
+}
+
+.kembalimateri{
+    border-radius: 50%;
+    background: white;
+    width: 20px;
+    height: 20px;
+    font-weight: bold;
+    text-align: center;
+    color: blue;
+    cursor: pointer;
+
+}
+
+
+
