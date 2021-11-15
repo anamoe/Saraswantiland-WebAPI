@@ -16,6 +16,8 @@ class PromoController extends Controller
     public function index()
     {
         //
+        $promo= Promo::all();
+        return view('alatpemasaran.promo.index',compact('promo'));
     }
 
     /**

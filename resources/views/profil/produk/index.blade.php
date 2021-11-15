@@ -13,42 +13,41 @@
 <br><br><br>
 
 
-
-                     <!-- Modal -->
-                     <div class="modal fade" id="editMapel" role="dialog" aria-labelledby="editMapel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Edit Produk Perusahaan</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="" id="updatemapel" method="post">
-                                    @method("patch")
-                                    @csrf
-                                    <div class="form-group form-inline">
-                                        <label for="namamapel" class="col-md-3 col-form-label">Nama Produk Perusahaan</label>
-                                        <div class="col-md-9 p-0">
-                                            <input type="text" class="form-control input-full" name="mapel" id="editnamamapel" placeholder="Enter Input">
-                                        </div>
-                                    </div>
-
-
-
-                                    
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <button type="button" class="btn btn-primary"
-                            onclick="document.getElementById('updatemapel').submit()"
-                            >Simpan</button>
-                            </div>
-                        </div>
-                        </div>
+    <!-- Modal -->
+    <div class="modal fade" id="editMapel" role="dialog" aria-labelledby="editMapel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Edit Produk Perusahaan</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form action="" id="updatemapel" method="post">
+                @method("patch")
+                @csrf
+                <div class="form-group form-inline">
+                    <label for="namamapel" class="col-md-3 col-form-label">Nama Produk Perusahaan</label>
+                    <div class="col-md-9 p-0">
+                        <input type="text" class="form-control input-full" name="mapel" id="editnamamapel" placeholder="Enter Input">
                     </div>
+                </div>
+
+
+
+                
+            </form>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+        <button type="button" class="btn btn-primary"
+        onclick="document.getElementById('updatemapel').submit()"
+        >Simpan</button>
+        </div>
+    </div>
+    </div>
+</div>
 
 <div class="page-inner containermateri mt--5 d-block">
    
@@ -56,9 +55,9 @@
 
         <div class="col-md-12">
              <div class="px-3">
-                <div class="card-header row" style="border: 1px solid black !important;">
+                <div class="card-header row">
                     <div class="col-md-12">
-                        <span class="float-left">Produk</span>
+                        <span class="float-left">Produk Perusahaan</span>
                         <i style="cursor:pointer;" 
                         onclick="edit('')" 
                                 data-toggle="modal" data-target="#editMapel" class="fe fe-edit float-left text-warning mr-3"></i>
@@ -83,17 +82,17 @@
                            
                             <tbody>
                                 
-                             
+                             @foreach($produk as $p)
 
-
+                            
                                 <tr>
-                                    <td>1</td>
-                                    <td>Alana</td>
+                                    <td>{{$loop->iteration}}</td>
+                                    <td>{{$p->nama_produk_perusahaan}}</td>
                                     <td><button class="btn btn-sm dropdown-toggle more-horizontal"  type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="text-muted sr-only">Action</span>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="">Show & Edit</a>
+                                        <a class="dropdown-item" href="{{url('produk/'.$p->id)}}">Show & Edit</a>
                                         <a class="dropdown-item" onClick="hapus(this)" type="button" href="" data-target="#confirmation-modal" 
                                         data-toggle="modal" 
                                         >Hapus</a>
@@ -101,8 +100,7 @@
                                     </td>
 
                                 </tr>
-
-                                
+                                @endforeach                                
 
 
                             </tbody>
@@ -150,18 +148,18 @@
                  <h6 class="text-white">Tambah Produk Perusahaan <div style="cursor: pointer;" class="float-right kembalimateri">X</div> </h6>
               </div>
               <div class="card-body">
-                 <form method="post" action="{{url('kelolamateri')}}" enctype="multipart/form-data" id="submitdata">
+                 <form method="post" action="{{url('produk')}}" enctype="multipart/form-data" id="submitdata">
                     @csrf
 
                    
 
                     <div class="form-group">
                        <label>Produk Perusahaan</label>
-                       <input type="text" name="judul" id="nama_materi" class="form-control"/>
+                       <input type="text" name="nama_produk_perusahaan" id="nama_materi" class="form-control"/>
                     </div>
                     <div class="form-group">
                        <label>Deskripsi :</label>
-                       <textarea class="summernote_dessription" name="materi" id="isi_materi"></textarea>
+                       <textarea class="summernote_dessription" name="deskripsi" id="isi_materi"></textarea>
                     </div>
                    
                  </form>

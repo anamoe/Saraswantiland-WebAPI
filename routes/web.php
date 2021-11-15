@@ -19,8 +19,13 @@ Route::get('/', function () {
 Route::get('/tes',function(){
     return view('dashboard');
 });
-Route::get('/produk',function(){
-    return view('profil.produk.index');
+Route::resource('produk',App\Http\Controllers\Web\ProdukPerusahaanController::class);
+Route::resource('promo',App\Http\Controllers\Web\PromoController::class);
+// Route::get('/produk-edit/{$id}',[App\Http\Controllers\Web\ProdukPerusahaanController::class,'editt']);
+
+Route::resource('/produk',App\Http\Controllers\Web\ProdukPerusahaanController::class);
+Route::get('/ikhtisar',function(){
+    return view('profil.ikhtisar.index');
 });
 
 

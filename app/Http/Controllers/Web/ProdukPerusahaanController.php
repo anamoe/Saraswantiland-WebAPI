@@ -16,6 +16,8 @@ class ProdukPerusahaanController extends Controller
     public function index()
     {
         //
+        $produk = ProdukPerusahaan::all();
+        return view('profil.produk.index',compact('produk'));
     }
 
     /**
@@ -37,6 +39,9 @@ class ProdukPerusahaanController extends Controller
     public function store(Request $request)
     {
         //
+        ProdukPerusahaan::create($request->except('_token'));
+        return redirect()->back()->with('message', 'Produk Perusahaan Berhasil Ditambahkan');
+        
     }
 
     /**
@@ -48,6 +53,10 @@ class ProdukPerusahaanController extends Controller
     public function show($id)
     {
         //
+        $produk = ProdukPerusahaan::where('id',$id)->first();
+        
+        return view('profil.produk.edit',compact('produk'));
+    
     }
 
     /**
@@ -59,6 +68,9 @@ class ProdukPerusahaanController extends Controller
     public function edit($id)
     {
         //
+        $produk = ProdukPerusahaan::where('id',$id)->first();
+      
+        return view('profil.produk.edit',compact('produk'));
     }
 
     /**
@@ -71,6 +83,9 @@ class ProdukPerusahaanController extends Controller
     public function update(Request $request, $id)
     {
         //
+        ProdukPerusahaan::where('id', '=', $id)->update($request->except(['_token','_method']));
+     
+        return redirect('produk')->with('message', 'Produk Perusahaan Berhasil Diubah');
     }
 
     /**

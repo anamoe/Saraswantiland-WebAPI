@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class FilosofiTagline extends Model
 {
     use HasFactory;
+    protected $fillable = ['judul','deskripsi','type'
+
+    ];
 }

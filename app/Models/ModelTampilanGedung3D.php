@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class ModelTampilanGedung3D extends Model
 {
     use HasFactory;
+    protected $fillable = ['foto_gedung'];
 }

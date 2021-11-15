@@ -16,7 +16,7 @@ class FilosofiTaglineController extends Controller
     public function index()
     {
         //
-        return view('');
+       
     }
 
     /**
