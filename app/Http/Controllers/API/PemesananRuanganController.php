@@ -22,5 +22,8 @@ class PemesananRuanganController extends Controller
 
         return RiwayatPemesanan::all();
     }
+    public function indexriwayat (){
+        return view('riwayat.index');
+    }
 
 }

@@ -14,9 +14,9 @@
             <div class="px-3">
                 <div class="card-header row">
                     <div class="col-md-12">
-                        <span class="float-left" style="font-size: 24px;">Promo Perusahaan</span>
+                        <span class="float-left" style="font-size: 24px;">Unit Perusahaan</span>
                         <!-- <i style="cursor:pointer;" onclick="edit('')" data-toggle="modal" data-target="#editMapel" class="fe fe-edit float-left text-warning mr-3"></i> -->
-                        <button class="btn btn-sm btn-rounded btn-primary float-right"  data-toggle="modal" data-target="#ModalTambahSS"><i class="fas fa-plus"> </i> Tambah Promo</button>
+                        <button class="btn btn-sm btn-rounded btn-primary float-right"  data-toggle="modal" data-target="#ModalTambahSS"><i class="fas fa-plus"> </i> Tambah Ruang</button>
                     </div>
 
                 </div>
@@ -32,28 +32,27 @@
 
                             <tr>
                                 <th>No.</th>
-                                <th>Judul</th>
+                                <th>No_Ruangan</th>
+                                <th>Status</th>
                                 <th>Deskripsi</th>
-                                <th>Foto_Slideshow</th>
                                 <th>Aksi</th>
 
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($promo as $p)
+                            @foreach($ruang as $p)
 
                             <tr>
 
                                 <td>{{$loop->iteration}}</td>
-                                <td>{{$p->judul_promo}}</td>
-                                <td>{{$p->deskripsi_promo}}</td>
-                                <td>{{$p->foto_promo}}</td>
+                                <td><a href="">{{$p->nomor_ruangan}}</a></td>
+                                <td>{{$p->status}}</td>
+                                <td>{{$p->deskripsi}}</td>
                                 <td>
-                                    <a href="" class="btn-sm btn-success text-white" data-toggle="modal" data-target="#ModalDetailSS"><i class="fa fa-eye"></i></a>
-                                    <a href="" class="btn-sm btn-warning" data-toggle="modal" data-target="#ModalEditSS"><i class="fa fa-edit"></i></a>
+                                <a href="" class="btn-sm btn-success text-white" data-toggle="modal" data-target="#ModalDetailSS"><i class="fa fa-eye"></i></a>
+                                    <a href="" class="btn-sm btn-warning" data-toggle="modal" data-target="#ModalEditSS" ><i class="fa fa-edit"></i></a>
                                     <a href="" class="btn-sm btn-danger" data-target="confirmation-modal"><i class="fa fa-trash"></i></a>
                                 </td>
-
                             </tr>
 
                             @endforeach
@@ -72,12 +71,12 @@
 
     {{-- modal--}}
 
-<div class="modal fade" id="ModalTambahSS" tabindex="-1" aria-labelledby="ModalTambahSSLabel" aria-hidden="true">
+    <div class="modal fade" id="ModalTambahSS" tabindex="-1" aria-labelledby="ModalTambahSSLabel" aria-hidden="true">
 <div id="loader" ></div>
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="ModalTambahSSLabel">Tambah Promo</h5>
+                <h5 class="modal-title" id="ModalTambahSSLabel">Tambah Ruang</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -86,33 +85,31 @@
                 <form action="" method="post" id="addss">
                     @csrf
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Judul Promo</label>
+                        <label class="col-sm-3 col-form-label">Nomor Ruang</label>
                         <div class="col-sm-9">
-                            <input type="text" id="judul" name="judul" class="form-control">
+                            <input type="text" id="nomor_ruang" name="nomor_ruang" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Deskripsi Promo</label>
+                        <label class="col-sm-3 col-form-label">Status Ruang</label>
                         <div class="col-sm-9">
-                            <textarea type="text" id="deskripsi" name="deskripsi" class="form-control"></textarea>
+                            <select type="text" id="status" name="status" class="form-control">
+                                <option value="">1</option>
+                                <option value="">1</option>
+                                <option value="">1</option>
+                            </select>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Foto Promo</label>
+                        <label class="col-sm-3 col-form-label">Fasilitas Ruang</label>
                         <div class="col-sm-9">
-                            <!-- <input type="text" id="foto_slideshow" class="form-control"> -->
-
-                            <div class="form-group upimageposting">
-                                <button type="button" class="btn btn-primary btn-border btn-block" onclick="document.getElementById('uploadimagefileposting').click()">
-                                    <i class="fa fa-camera" aria-hidden="true" style="font-size: 50px;"></i>
-                                </button>
-                            </div>
-                            <img id="img-uploadposting" src='' alt="" class="img-uploadposting d-none w-100" onclick="document.getElementById('uploadimagefileposting').click()">
-                            <input type="file" onchange="readURLfotoposting(this);" class="d-none" name="foto_slideshow" accept="image/*" id="uploadimagefileposting"></input>
+                            <textarea type="text" id="fasilitas" name="fasilitas" class="form-control"></textarea>
                         </div>
                     </div>
+
+                    
 
 
                 </form>
@@ -125,14 +122,13 @@
     </div>
 </div>
 
-
-<!-- Modal edit -->
-<div class="modal fade" id="ModalEditSS" tabindex="-1" aria-labelledby="ModalEditSSLabel" aria-hidden="true">
+<!-- Modal Edit -->
+    <div class="modal fade" id="ModalEditSS" tabindex="-1" aria-labelledby="ModalEditSSLabel" aria-hidden="true">
 <div id="loader" ></div>
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="ModalEditSSLabel">Edit Promo</h5>
+                <h5 class="modal-title" id="ModalEditSSLabel">Edit Ruang</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -141,33 +137,31 @@
                 <form action="" method="post" id="addss">
                     @csrf
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Judul Promo</label>
+                        <label class="col-sm-3 col-form-label">Nomor Ruang</label>
                         <div class="col-sm-9">
-                            <input type="text" id="judul" name="judul" class="form-control">
+                            <input type="text" id="nomor_ruang" name="nomor_ruang" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Deskripsi Promo</label>
+                        <label class="col-sm-3 col-form-label">Status Ruang</label>
                         <div class="col-sm-9">
-                            <textarea type="text" id="deskripsi" name="deskripsi" class="form-control"></textarea>
+                            <select type="text" id="status" name="status" class="form-control">
+                                <option value="">1</option>
+                                <option value="">1</option>
+                                <option value="">1</option>
+                            </select>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Foto Promo</label>
+                        <label class="col-sm-3 col-form-label">Fasilitas Ruang</label>
                         <div class="col-sm-9">
-                            <!-- <input type="text" id="foto_slideshow" class="form-control"> -->
-
-                            <div class="form-group upimageposting">
-                                <button type="button" class="btn btn-primary btn-border btn-block" onclick="document.getElementById('uploadimagefileposting').click()">
-                                    <i class="fa fa-camera" aria-hidden="true" style="font-size: 50px;"></i>
-                                </button>
-                            </div>
-                            <img id="img-uploadposting" src='' alt="" class="img-uploadposting d-none w-100" onclick="document.getElementById('uploadimagefileposting').click()">
-                            <input type="file" onchange="readURLfotoposting(this);" class="d-none" name="foto_slideshow" accept="image/*" id="uploadimagefileposting"></input>
+                            <textarea type="text" id="fasilitas" name="fasilitas" class="form-control"></textarea>
                         </div>
                     </div>
+
+                    
 
 
                 </form>
@@ -180,13 +174,14 @@
     </div>
 </div>
 
-<!-- Modal detail -->
+
+<!-- Modal Detail -->
 <div class="modal fade" id="ModalDetailSS" tabindex="-1" aria-labelledby="ModalDetailSSLabel" aria-hidden="true">
 <div id="loader" ></div>
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="ModalDetailSSLabel">Detail Promo</h5>
+                <h5 class="modal-title" id="ModalDetailSSLabel">Detail Ruang</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -194,23 +189,28 @@
             <div class="modal-body">
                 <form action="" method="post" id="addss">
                     @csrf
-
-                    <div class="text-center">
-                    <img src="{{asset('public/icon/vvv.png')}}" style="width: 200px;">
-
-                    </div>
-
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Judul Promo</label>
+                        <label class="col-sm-3 col-form-label">Nomor Ruang</label>
                         <div class="col-sm-9">
-                            <input type="text" id="judul" name="judul" value="" class="form-control">
+                            <input type="text" id="nomor_ruang" name="nomor_ruang" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Deskripsi Promo</label>
+                        <label class="col-sm-3 col-form-label">Status Ruang</label>
                         <div class="col-sm-9">
-                            <textarea type="text" id="deskripsi" name="deskripsi" class="form-control"></textarea>
+                            <select type="text" id="status" name="status" class="form-control">
+                                <option value="">1</option>
+                                <option value="">1</option>
+                                <option value="">1</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Fasilitas Ruang</label>
+                        <div class="col-sm-9">
+                            <textarea type="text" id="fasilitas" name="fasilitas" class="form-control"></textarea>
                         </div>
                     </div>
 
@@ -225,7 +225,6 @@
         </div>
     </div>
 </div>
-
     
 
 @endsection

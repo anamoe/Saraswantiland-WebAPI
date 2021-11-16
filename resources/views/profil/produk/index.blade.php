@@ -10,7 +10,7 @@
 
 @section('content')
 
-<br><br><br>
+<br><br>
 
 
     <!-- Modal -->
@@ -57,11 +57,11 @@
              <div class="px-3">
                 <div class="card-header row">
                     <div class="col-md-12">
-                        <span class="float-left">Produk Perusahaan</span>
+                        <span class="float-left" style="font-size: 24px;">Produk Perusahaan</span>
                         <i style="cursor:pointer;" 
                         onclick="edit('')" 
                                 data-toggle="modal" data-target="#editMapel" class="fe fe-edit float-left text-warning mr-3"></i>
-                        <button class="btn btn-sm btn-primary float-right" id="btn-tambahmateri">Tambah Produk Perusahaan</button>
+                        <button class="btn btn-sm btn-primary btn-rounded float-right" id="btn-tambahmateri"><i class="fas fa-plus"> </i> Tambah Produk</button>
                     </div>
 
                 </div>
@@ -76,7 +76,9 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Produk Perusahaan</th>
-                                    <th style="width: 10%">Action</th>
+                                    <th>Deskripsi</th>
+                                    <th>Faslitas</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                            
@@ -88,7 +90,14 @@
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$p->nama_produk_perusahaan}}</td>
-                                    <td><button class="btn btn-sm dropdown-toggle more-horizontal"  type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <td>{{$p->deskripsi}}</td>
+                                    <td>{{$p->fasilitas}}</td>
+                                    <td>
+                                    <a href="" class="btn-sm btn-success text-white" data-toggle="modal" data-target="#ModalDetailSS"><i class="fa fa-eye"></i></a>
+                                    <a href="{{url('produk/'.$p->id)}}" class="btn-sm btn-warning"><i class="fa fa-edit"></i></a>
+                                    <a href="" class="btn-sm btn-danger" onClick="hapus(this)" type="button" href="" data-target="#confirmation-modal"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                    <!-- <td><button class="btn btn-sm dropdown-toggle more-horizontal"  type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="text-muted sr-only">Action</span>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right">
@@ -97,7 +106,7 @@
                                         data-toggle="modal" 
                                         >Hapus</a>
                                         </div>
-                                    </td>
+                                    </td> -->
 
                                 </tr>
                                 @endforeach                                
@@ -157,6 +166,12 @@
                        <label>Produk Perusahaan</label>
                        <input type="text" name="nama_produk_perusahaan" id="nama_materi" class="form-control"/>
                     </div>
+
+                    <div class="form-group">
+                       <label>Fasilitas Perusahaan</label>
+                       <textarea type="text" name="fasilitas" id="fasilitas" class="form-control"></textarea>
+                    </div>
+
                     <div class="form-group">
                        <label>Deskripsi :</label>
                        <textarea class="summernote_dessription" name="deskripsi" id="isi_materi"></textarea>
@@ -174,6 +189,50 @@
 </div>
 
 
+<!-- Modal detail -->
+<div class="modal fade" id="ModalDetailSS" tabindex="-1" aria-labelledby="ModalDetailSSLabel" aria-hidden="true">
+<div id="loader" ></div>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalDetailSSLabel">Detail Promo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" id="addss">
+                    @csrf
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Produk Perusahaan</label>
+                        <div class="col-sm-9">
+                            <input type="text" id="judul" name="judul" value="" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Deskripsi Perusahaan</label>
+                        <div class="col-sm-9">
+                            <textarea type="text" id="deskripsi" name="deskripsi" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Fasilitas Perusahaan</label>
+                        <div class="col-sm-9">
+                            <textarea type="text" id="fasilitas" name="fasilitas" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
     
 @endsection
 

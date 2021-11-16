@@ -16,6 +16,23 @@ class FilosofiTaglineController extends Controller
     public function index()
     {
         //
+        $filosofi= FilosofiTagline::all();
+        return view('alatpemasaran.filosofi.index',compact('filosofi'));
+       
+    }
+    public function indextagline()
+    {
+        //
+        $tagline= FilosofiTagline::all();
+        return view('alatpemasaran.tagline.index',compact('tagline'));
+       
+    }
+
+    public function indexcontact()
+    {
+        //
+        $contact= FilosofiTagline::all();
+        return view('alatpemasaran.contact.index',compact('contact'));
        
     }
 

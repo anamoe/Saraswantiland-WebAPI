@@ -14,9 +14,9 @@
             <div class="px-3">
                 <div class="card-header row">
                     <div class="col-md-12">
-                        <span class="float-left" style="font-size: 24px;">Promo Perusahaan</span>
+                        <span class="float-left" style="font-size: 24px;">Gedung Perusahaan</span>
                         <!-- <i style="cursor:pointer;" onclick="edit('')" data-toggle="modal" data-target="#editMapel" class="fe fe-edit float-left text-warning mr-3"></i> -->
-                        <button class="btn btn-sm btn-rounded btn-primary float-right"  data-toggle="modal" data-target="#ModalTambahSS"><i class="fas fa-plus"> </i> Tambah Promo</button>
+                        <button class="btn btn-sm btn-rounded btn-primary float-right"  data-toggle="modal" data-target="#ModalTambahSS"><i class="fas fa-plus"> </i> Tambah Data</button>
                     </div>
 
                 </div>
@@ -32,29 +32,21 @@
 
                             <tr>
                                 <th>No.</th>
-                                <th>Judul</th>
-                                <th>Deskripsi</th>
-                                <th>Foto_Slideshow</th>
+                                <th>Foto Gedung</th>
                                 <th>Aksi</th>
 
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($promo as $p)
-
-                            <tr>
+                            @foreach($gedung as $p)
 
                                 <td>{{$loop->iteration}}</td>
-                                <td>{{$p->judul_promo}}</td>
-                                <td>{{$p->deskripsi_promo}}</td>
-                                <td>{{$p->foto_promo}}</td>
+                                <td>{{$p->foto_gedung}}</td>
                                 <td>
                                     <a href="" class="btn-sm btn-success text-white" data-toggle="modal" data-target="#ModalDetailSS"><i class="fa fa-eye"></i></a>
-                                    <a href="" class="btn-sm btn-warning" data-toggle="modal" data-target="#ModalEditSS"><i class="fa fa-edit"></i></a>
+                                    <a href="" class="btn-sm btn-warning" data-toggle="modal" data-target="#ModalEditSS" ><i class="fa fa-edit"></i></a>
                                     <a href="" class="btn-sm btn-danger" data-target="confirmation-modal"><i class="fa fa-trash"></i></a>
                                 </td>
-
-                            </tr>
 
                             @endforeach
                         </tbody>
@@ -72,7 +64,7 @@
 
     {{-- modal--}}
 
-<div class="modal fade" id="ModalTambahSS" tabindex="-1" aria-labelledby="ModalTambahSSLabel" aria-hidden="true">
+    <div class="modal fade" id="ModalTambahSS" tabindex="-1" aria-labelledby="ModalTambahSSLabel" aria-hidden="true">
 <div id="loader" ></div>
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -85,22 +77,9 @@
             <div class="modal-body">
                 <form action="" method="post" id="addss">
                     @csrf
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Judul Promo</label>
-                        <div class="col-sm-9">
-                            <input type="text" id="judul" name="judul" class="form-control">
-                        </div>
-                    </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Deskripsi Promo</label>
-                        <div class="col-sm-9">
-                            <textarea type="text" id="deskripsi" name="deskripsi" class="form-control"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Foto Promo</label>
+                        <label class="col-sm-3 col-form-label">Foto Gedung</label>
                         <div class="col-sm-9">
                             <!-- <input type="text" id="foto_slideshow" class="form-control"> -->
 
@@ -126,13 +105,14 @@
 </div>
 
 
-<!-- Modal edit -->
-<div class="modal fade" id="ModalEditSS" tabindex="-1" aria-labelledby="ModalEditSSLabel" aria-hidden="true">
+<!-- modal edit -->
+
+    <div class="modal fade" id="ModalEditSS" tabindex="-1" aria-labelledby="ModalTEditSSLabel" aria-hidden="true">
 <div id="loader" ></div>
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="ModalEditSSLabel">Edit Promo</h5>
+                <h5 class="modal-title" id="ModalEditSSLabel">Edit Data</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -140,22 +120,12 @@
             <div class="modal-body">
                 <form action="" method="post" id="addss">
                     @csrf
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Judul Promo</label>
-                        <div class="col-sm-9">
-                            <input type="text" id="judul" name="judul" class="form-control">
-                        </div>
-                    </div>
 
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Deskripsi Promo</label>
-                        <div class="col-sm-9">
-                            <textarea type="text" id="deskripsi" name="deskripsi" class="form-control"></textarea>
-                        </div>
+                    <div class="text-center">
+                        <img src="{{asset('public/icon/vvv.png')}}" style="width: 500px;">
                     </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Foto Promo</label>
+                    <div class="form-group">
+                        <label class="col-sm-3 col-form-label">Foto Gedung</label>
                         <div class="col-sm-9">
                             <!-- <input type="text" id="foto_slideshow" class="form-control"> -->
 
@@ -180,13 +150,13 @@
     </div>
 </div>
 
-<!-- Modal detail -->
-<div class="modal fade" id="ModalDetailSS" tabindex="-1" aria-labelledby="ModalDetailSSLabel" aria-hidden="true">
+<!-- Modal Detail -->
+    <div class="modal fade" id="ModalDetailSS" tabindex="-1" aria-labelledby="ModalDetailSSLabel" aria-hidden="true">
 <div id="loader" ></div>
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="ModalDetailSSLabel">Detail Promo</h5>
+                <h5 class="modal-title" id="ModalEditSSLabel">Detail</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -196,25 +166,8 @@
                     @csrf
 
                     <div class="text-center">
-                    <img src="{{asset('public/icon/vvv.png')}}" style="width: 200px;">
-
+                        <img src="{{asset('public/icon/vvv.png')}}" style="width: 500px;">
                     </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Judul Promo</label>
-                        <div class="col-sm-9">
-                            <input type="text" id="judul" name="judul" value="" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Deskripsi Promo</label>
-                        <div class="col-sm-9">
-                            <textarea type="text" id="deskripsi" name="deskripsi" class="form-control"></textarea>
-                        </div>
-                    </div>
-
-                    
 
 
                 </form>

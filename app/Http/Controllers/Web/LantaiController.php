@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\ProfilPerusahaan;
+use App\Models\DaftarLantai;
 
-class ProfilPerusahaanController extends Controller
+
+class LantaiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +16,9 @@ class ProfilPerusahaanController extends Controller
      */
     public function index()
     {
-        $profil = ProfilPerusahaan::all();
-        return view('profil.ikhtisar.index',compact('profil'));
+        //
+        $lantai= DaftarLantai::all();
+        return view('alatpemasaran.unit.lantai',compact('lantai'));
     }
 
     /**

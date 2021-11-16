@@ -5,6 +5,8 @@
     
             <ul class="nav nav-primary">
 
+
+            
                 <li class="nav-item">
                     <a data-toggle="collapse" href="#pp" class="collapsed" aria-expanded="false">
 						      
@@ -63,7 +65,7 @@
                         
                         
                         <li class="{{ (request()->is('/')) ? '' : 'active' }}">
-                            <a href="{{url('showbio')}}" class="collapsed" aria-expanded="false">
+                            <a href="{{url('/lantai')}}" class="collapsed" aria-expanded="false">
                             <img class="" src="{{asset('public/icon/tipeunit.png')}}" alt="User Avatar " style=" height:20px; width:20px;">
                      <span class="ml-3 item-text">Tipe Unit</span>
 						
@@ -73,7 +75,7 @@
 
                    
 						<li class="{{ (request()->is('/')) ? '' : 'active' }}">
-                            <a href="{{url('/')}}" class="collapsed" aria-expanded="false">
+                            <a href="{{url('/filosofi')}}" class="collapsed" aria-expanded="false">
                             <img class="" src="{{asset('public/icon/filosofi.png')}}" alt="User Avatar " style=" height:20px; width:20px;">
                      <span class="ml-3 item-text">Filosofi</span>
 						
@@ -82,9 +84,25 @@
                         
                         
                         <li class="{{ (request()->is('/')) ? '' : 'active' }}">
-                            <a href="{{url('showbio')}}" class="collapsed" aria-expanded="false">
+                            <a href="{{url('/tagline')}}" class="collapsed" aria-expanded="false">
                             <img class="" src="{{asset('public/icon/tagline.png')}}" alt="User Avatar " style=" height:20px; width:20px;">
                      <span class="ml-3 item-text">Tagline</span>
+						
+                            </a>
+                        </li>
+
+                        <li class="{{ (request()->is('/')) ? '' : 'active' }}">
+                            <a href="{{url('/contact')}}" class="collapsed" aria-expanded="false">
+                            <img class="" src="{{asset('public/icon/tagline.png')}}" alt="User Avatar " style=" height:20px; width:20px;">
+                     <span class="ml-3 item-text">Contact</span>
+						
+                            </a>
+                        </li>
+
+                        <li class="{{ (request()->is('/')) ? '' : 'active' }}">
+                            <a href="{{url('/gedung')}}" class="collapsed" aria-expanded="false">
+                            <img class="" src="{{asset('public/icon/tagline.png')}}" alt="User Avatar " style=" height:20px; width:20px;">
+                     <span class="ml-3 item-text">Tampilan Gedung</span>
 						
                             </a>
                         </li>
@@ -94,7 +112,13 @@
                     
                 </li>
            
-
+                <li class="nav-item">
+                            <a href="{{url('/riwayat')}}" class="collapsed" aria-expanded="false">
+                            <img class="" src="{{asset('public/icon/tagline.png')}}" alt="User Avatar " style=" height:20px; width:20px;">
+                     <span class="ml-3 item-text">Riwayat Pemesanan</span>
+						
+                            </a>
+                        </li>
 
             </ul>
         </div>

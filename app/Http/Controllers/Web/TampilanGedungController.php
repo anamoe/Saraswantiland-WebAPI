@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\ModelTampilanGedung3Dl;
+use App\Models\ModelTampilanGedung3D;
 
 class TampilanGedungController extends Controller
 {
@@ -16,6 +16,8 @@ class TampilanGedungController extends Controller
     public function index()
     {
         //
+        $gedung= ModelTampilanGedung3D::all();
+        return view('alatpemasaran.gedung.index',compact('gedung'));
     }
 
     /**

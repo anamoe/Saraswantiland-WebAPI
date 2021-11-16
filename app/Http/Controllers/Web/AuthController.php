@@ -23,7 +23,7 @@ class AuthController extends Controller
 
     }
 
-    public function login(Request $request){
+    public function logins(Request $request){
         $input = $request->all();
 
         if (User::where('email', '=', $input['email'])->first() == true) {
@@ -45,7 +45,10 @@ class AuthController extends Controller
         Auth::logout(); // menghapus session yang aktif
         return redirect()->route('login');
     }
-        
+    public function login(){
+
+        return view('auth.login.index');
+    }
     
 
   
