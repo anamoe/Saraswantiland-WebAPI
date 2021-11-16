@@ -11,8 +11,16 @@ class PemesananRuanganController extends Controller
     //
     public function addbooking(Request $request){
 
-       $rp= $request->input()->all();
+       $rp= $request->all();
        RiwayatPemesanan::create($rp);
+       return "sukses booking ruangan ";
+
        
     }
+
+    public function getbooking(){
+
+        return RiwayatPemesanan::all();
+    }
+
 }
