@@ -53,7 +53,7 @@
         <div class="col-md-12  mt-5">
            <div class="card">
               <div class="card-header bg-primary">
-                 <h6 class="text-white">Edit Produk Perusahaan <div style="cursor: pointer;" class="float-right kembalimateri"></div> </h6>
+                 <h6 class="text-white">Edit Produk Perusahaan  </h6>
               </div>
               <div class="card-body">
                  <form method="post" action="{{url('produk/'.$produk->id)}}" enctype="multipart/form-data" id="submitdata">
@@ -67,7 +67,7 @@
                  
                     <div class="form-group">
                        <label>Deskripsi :</label>
-                       <textarea class="summernote_dessription" name="" id="">{{$produk->deskripsi}}</textarea>
+                       <textarea class="summernote_dessription" name="deskripsi" id="">{{$produk->deskripsi}}</textarea>
                     </div>
                    
                  </form>

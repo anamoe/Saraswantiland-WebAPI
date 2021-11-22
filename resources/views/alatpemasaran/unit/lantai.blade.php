@@ -14,7 +14,7 @@
             <div class="px-3">
                 <div class="card-header row">
                     <div class="col-md-12">
-                        <span class="float-left" style="font-size: 24px;">Unit Perusahaan</span>
+                        <span class="float-left" style="font-size: 24px;">Unit Perusahaan - Lantai</span>
                         <!-- <i style="cursor:pointer;" onclick="edit('')" data-toggle="modal" data-target="#editMapel" class="fe fe-edit float-left text-warning mr-3"></i> -->
                         <button class="btn btn-sm btn-rounded btn-primary float-right"  data-toggle="modal" data-target="#ModalTambahSS"><i class="fas fa-plus"> </i> Tambah Lantai</button>
                     </div>
@@ -44,13 +44,17 @@
                             <tr>
 
                                 <td>{{$loop->iteration}}</td>
-                                <td><a href="">{{$p->nomor_lantai}}</a></td>
+                                <td><a href="{{url('ruang/'.$p->id)}}">{{$p->nomor_lantai}}</a></td>
                                 <td>{{$p->status}}</td>
                                 <td>
-                                <a href="" class="btn-sm btn-success text-white" data-toggle="modal" data-target="#ModalDetailSS"><i class="fa fa-eye"></i></a>
-                                    <a href="" class="btn-sm btn-warning" data-toggle="modal" data-target="#ModalEditSS" ><i class="fa fa-edit"></i></a>
-                                    <a href="" class="btn-sm btn-danger" data-target="confirmation-modal"><i class="fa fa-trash"></i></a>
+                                <!-- <a href="" class="btn-sm btn-success text-white" data-toggle="modal" data-target="#ModalDetailSS"><i class="fa fa-eye"></i></a> -->
+                                    <a href="#" class="btn-sm btn-warning" data-toggle="modal" data-target="#ModalEditSS" onclick="edit('{{$p->id}}','{{$p->status}}','{{$p->nomor_lantai}}')" ><i class="fa fa-edit"></i></a>
+                                    <a href="#" onclick="hapus('{{$p->id}}','{{$p->nomor_lantai}}')"class="btn-sm btn-danger" data-target="confirmation-modal"><i class="fa fa-trash"></i></a>
+                                        
+                             
                                 </td>
+                               
+                                   
                             </tr>
 
                             @endforeach
@@ -67,6 +71,7 @@
 </div>
 
 
+
     {{-- modal--}}
 
     <div class="modal fade" id="ModalTambahSS" tabindex="-1" aria-labelledby="ModalTambahSSLabel" aria-hidden="true">
@@ -80,12 +85,12 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="" method="post" id="addss">
+                <form action="{{url('lantai')}}" method="post" id="buatlantai" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Nomor Lantai</label>
                         <div class="col-sm-9">
-                            <input type="text" id="nomor_ruang" name="nomor_ruang" class="form-control">
+                            <input type="text" id="nomor_lantai" name="nomor_lantai" class="form-control">
                         </div>
                     </div>
 
@@ -93,19 +98,35 @@
                         <label class="col-sm-3 col-form-label">Status Lantai</label>
                         <div class="col-sm-9">
                             <select type="text" id="status" name="status" class="form-control">
-                                <option value="">1</option>
-                                <option value="">1</option>
-                                <option value="">1</option>
+                                <option value="open">open</option>
+                                <option value="sold">sold</option>
+                                <option value="hold">hold</option>
                             </select>
                         </div>
                     </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Masukan Jumlah Ruangan</label>
+                        <div class="col-sm-3">
+                            <input type="number" id="jlantai" class="form-control">
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="button" id="masukanlantai" class="btn btn-sm btn-primary">Oke</button>
+                        </div>
+                    </div>
+
+                    <div id="conlantai">
+
+                    </div>
+
+                    
 
 
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-primary" id="tambahkanss">Tambahkan</button>
+                <button type="button" class="btn btn-primary" onclick="buat()">Tambahkan</button>
             </div>
         </div>
     </div>
@@ -123,22 +144,25 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="" method="post" id="addss">
+                <form action="" method="post" id="uplantai">
+                    @method('patch')
                     @csrf
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Nomor Lantai</label>
                         <div class="col-sm-9">
-                            <input type="text" id="nomor_ruang" name="nomor_ruang" class="form-control">
+                            <input type="text" id="enomor" name="nomor_lantai" class="form-control">
                         </div>
                     </div>
+
+                    
 
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Status Lantai</label>
                         <div class="col-sm-9">
-                            <select type="text" id="status" name="status" class="form-control">
-                                <option value="">1</option>
-                                <option value="">1</option>
-                                <option value="">1</option>
+                            <select type="text" id="estatus" name="status" class="form-control">
+                                <option value="open">open</option>
+                                <option value="hold">hold</option>
+                                <option value="sold">sold</option>
                             </select>
                         </div>
                     </div>
@@ -149,7 +173,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-primary" id="editss">Perbaharui</button>
+                <button type="button" class="btn btn-primary" onclick="document.getElementById('uplantai').submit()">Perbaharui</button>
             </div>
         </div>
     </div>
@@ -197,6 +221,32 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="hapus" role="dialog" aria-labelledby="editpaket" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Hapus</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="" id="delete" method="post">
+                                        @method("delete")
+                                        @csrf
+                                    </form>
+                                    <span>Apakah Anda Mau menghapus  <span class="map"></span> ?</span>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                    <button type="button" class="btn btn-danger"
+                                    onclick="document.getElementById('delete').submit()"
+                                    >Hapus</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
     
 
 @endsection
@@ -205,14 +255,114 @@
 
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('#datassall').DataTable();
-    });
 
+$(document).ready(function() {
+
+@if(session()->has('message'))
+Swal.fire({
+  icon: 'success',
+  title: 'Berhasil',
+  text: "{{session()->get('message')}}",
+})
+@endif
+
+
+
+});
+
+    function buat(){
+        $('#nomor_lantai').removeClass('is-invalid')
+        $('.invalidlantai').removeClass('d-none').removeClass('d-block').addClass('d-none')
+        if ($('#nomor_lantai').val() == "") {
+            $('#nomor_lantai').addClass('is-invalid')
+        }else{
+            $("#buatlantai").submit()
+        }
+
+
+    }
+    function edit(id, status, lantai) {
+        $("#uplantai #estatus").val(status)
+        $("#uplantai #enomor").val(lantai)
+
+        $("#uplantai").attr("action", "{{url('lantai')}}" + "/" + id)
+        $("ModalEditSS").modal("show")
+        console.log(status, id, lantai)
+    }
+
+
+    function hapus(id,ruang) {
+        $("#uplantai .map").html(ruang)
+        $("#delete").attr("action","{{url('lantai')}}"+"/"+id)
+        $("#hapus").modal("show")
+    }
     $('#basic-datatables').DataTable({});
 </script>
 
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+
+<script>
+
+    $("#masukanlantai").on('click',()=>{
+        var jml = $("#jlantai").val()
+        $("#conlantai").empty()
+        for(let i=1;i<=jml;i++){
+            $("#conlantai").append(`
+            <div class="card-body bg-primary containerlantai">
+                        <span class="badge badge-secondary">${i}</span>
+                        
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label text-white">Nomor Ruangan</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="nomor_ruangan[]">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label text-white">Status</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" name="status_ruangan[]">
+                                    <option value="open">Open</option>
+                                    <option value="Hold">Hold</option>
+                                    <option value="Closed">Closed</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label text-white">Type</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="type[]">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label text-white">Luas</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="luas[]">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label text-white">Deskripsi</label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" name="deskripsi[]"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label text-white">Link Youtube</label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" name="link_youtube[]"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                 
+                    
+            `)
+        }
+
+    })
+
+
+</script>
 
 
 @endsection

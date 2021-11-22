@@ -29,3 +29,8 @@ Route::get('/filosofi',[App\Http\Controllers\API\GetDataController::class,'getfi
 Route::get('/tagline',[App\Http\Controllers\API\GetDataController::class,'gettagline']);
 Route::get('/kontak-admin',[App\Http\Controllers\API\GetDataController::class,'getcontact']);
 Route::get('/tampilangedung3d',[App\Http\Controllers\API\GetDataController::class,'gettampilangedung3d']);
+
+Route::get('/getdetik',[App\Http\Controllers\API\GetDataController::class,'getdetik']);
+Route::get('/getberanda',[App\Http\Controllers\API\GetDataController::class,'getberanda']);
+
+

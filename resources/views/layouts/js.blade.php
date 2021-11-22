@@ -48,6 +48,7 @@
 <script src="{{asset('public/template/assets/js/summernote.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/template/assets/js/summernote-audio.js')}}"></script>
 
+<script src="{{url('public/template/assets/js/swal.js')}}"></script>  
 <script>
     
    

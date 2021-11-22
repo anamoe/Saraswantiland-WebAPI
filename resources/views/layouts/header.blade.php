@@ -32,19 +32,31 @@
                 <li class="nav-item dropdown hidden-caret">
                     <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                         <div class="avatar-sm">
-                            <img src="{{asset('public/icon/default.jpg')}}" alt="..." class="avatar-img rounded-circle">
+                            <img src="{{asset('public/profile/'.auth()->user()->foto_profil)}}"  alt="..." class="avatar-img rounded-circle">
                         </div>
                     </a>
+
+                    
                     <ul class="dropdown-menu dropdown-user animated fadeIn">
                         <div class="dropdown-user-scroll scrollbar-outer">
                            
                             <li>
-                                <a class="dropdown-item" href="" onclick="event.preventDefault();
+                                <a class="dropdown-item" href="{{url('profil')}}" onclick="event.preventDefault();
+                                              document.getElementById('p').submit();">
+                                    {{ __('Profil') }}
+                                </a>
+
+                                <form id="p" action="{{url('profil')}}" method="GET" class="d-none">
+                                    @csrf
+                                </form>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{url('logout')}}" onclick="event.preventDefault();
                                               document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
 
-                                <form id="logout-form" action="" method="POST" class="d-none">
+                                <form id="logout-form" action="{{url('logout')}}" method="GET" class="d-none">
                                     @csrf
                                 </form>
                             </li>

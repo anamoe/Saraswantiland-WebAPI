@@ -97,5 +97,7 @@ class ProdukPerusahaanController extends Controller
     public function destroy($id)
     {
         //
+        ProdukPerusahaan::destroy($id);
+        return redirect()->back()->with('message','Berhasil Dihapus');
     }
 }

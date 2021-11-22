@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ModelTampilanGedung3D;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\File;
 
 class TampilanGedungController extends Controller
 {
@@ -39,6 +41,21 @@ class TampilanGedungController extends Controller
     public function store(Request $request)
     {
         //
+        if(!$request->hasFile('image')){
+            return redirect()->back()->with('error', 'Foto Gedung Tidak Boleh Kosong');
+        }
+        
+        $tujuan_upload = public_path('foto_tampilangedung');
+
+    
+        $file = $request->file('image');
+    
+        $namaFile = Carbon::now()->format('YmdHs') . $file->getClientOriginalName();
+        $file->move($tujuan_upload, $namaFile);
+        ModelTampilanGedung3D::create(['foto_gedung' => $namaFile
+        ]);
+        // dd($file);
+        return redirect()->back()->with('message', 'Foto Gedung Berhasil Ditambahkan');
     }
 
     /**
@@ -73,6 +90,23 @@ class TampilanGedungController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+
+        
+        if($request->hasFile('image3')){
+
+        
+            $tujuan_upload = public_path('foto_tampilangedung');
+    
+    
+            $file = $request->file('image3');
+            $namaFile = Carbon::now()->format('YmdHs') . $file->getClientOriginalName();
+            File::delete($tujuan_upload . '/' . ModelTampilanGedung3D::find($id)->foto_gedung);
+            $file->move($tujuan_upload, $namaFile);
+            ModelTampilanGedung3D::where('id',$id)->update(['foto_gedung' => $namaFile]);
+    
+            return redirect()->back()->with('message', 'Gedung Berhasil Diubah');
+        }
     }
 
     /**
@@ -84,5 +118,14 @@ class TampilanGedungController extends Controller
     public function destroy($id)
     {
         //
+        $tujuan_upload = public_path('foto_tampilangedung');
+        $s = ModelTampilanGedung3D::where('id', $id)->first();
+        if ($s) {
+
+            File::delete($tujuan_upload . '/' . $s->foto_gedung);
+            ModelTampilanGedung3D::destroy($id);
+        }
+
+        return redirect()->back()->with('message','Berhasil Dihapus');
     }
 }

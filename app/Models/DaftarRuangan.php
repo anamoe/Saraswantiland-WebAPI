@@ -8,7 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class DaftarRuangan extends Model
 {
     use HasFactory;
-    protected $fillable = ['lantai_id','nomor_ruangan','status','deskripsi'
+    protected $fillable = ['lantai_id','nomor_ruangan','status','deskripsi','type','luas','link_youtube','foto_ruangan'
 
     ];
+
+    public function getlantai(){
+        return $this->belongsTo(DaftarLantai::class,'lantai_id');
+    }
 }

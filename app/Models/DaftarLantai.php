@@ -11,4 +11,8 @@ class DaftarLantai extends Model
     protected $fillable=['nomor_lantai','status'
 
     ];
+
+    public function getruang(){
+        
+    }
 }

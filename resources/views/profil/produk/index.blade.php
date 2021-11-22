@@ -58,9 +58,9 @@
                 <div class="card-header row">
                     <div class="col-md-12">
                         <span class="float-left" style="font-size: 24px;">Produk Perusahaan</span>
-                        <i style="cursor:pointer;" 
+                        <!-- <i style="cursor:pointer;" 
                         onclick="edit('')" 
-                                data-toggle="modal" data-target="#editMapel" class="fe fe-edit float-left text-warning mr-3"></i>
+                                data-toggle="modal" data-target="#editMapel" class="fe fe-edit float-left text-warning mr-3"></i> -->
                         <button class="btn btn-sm btn-primary btn-rounded float-right" id="btn-tambahmateri"><i class="fas fa-plus"> </i> Tambah Produk</button>
                     </div>
 
@@ -90,23 +90,13 @@
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$p->nama_produk_perusahaan}}</td>
-                                    <td>{{$p->deskripsi}}</td>
-                                    <td>{{$p->fasilitas}}</td>
+                                    <td>{{ $p->deskripsi == null ? "-" : (Illuminate\Support\Str::limit($p->deskripsi, 20, $end='...')) }}</td>
+                                    <td>{{ $p->fasilitas == null ? "-" : (Illuminate\Support\Str::limit($p->fasilitas, 20, $end='...')) }}</td>
                                     <td>
-                                    <a href="" class="btn-sm btn-success text-white" data-toggle="modal" data-target="#ModalDetailSS"><i class="fa fa-eye"></i></a>
+                                    <!-- <a href="#" class="btn-sm btn-success text-white" data-toggle="modal" data-target="#ModalDetailSS"><i class="fa fa-eye"></i></a> -->
                                     <a href="{{url('produk/'.$p->id)}}" class="btn-sm btn-warning"><i class="fa fa-edit"></i></a>
-                                    <a href="" class="btn-sm btn-danger" onClick="hapus(this)" type="button" href="" data-target="#confirmation-modal"><i class="fa fa-trash"></i></a>
+                                    <a href="#" onclick="hapus('{{$p->id}}','{{$p->nama_produk_perusahaan}}')"class="btn-sm btn-danger" onClick="hapus(this)" type="button" href="" data-target="#confirmation-modal"><i class="fa fa-trash"></i></a>
                                     </td>
-                                    <!-- <td><button class="btn btn-sm dropdown-toggle more-horizontal"  type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="text-muted sr-only">Action</span>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="{{url('produk/'.$p->id)}}">Show & Edit</a>
-                                        <a class="dropdown-item" onClick="hapus(this)" type="button" href="" data-target="#confirmation-modal" 
-                                        data-toggle="modal" 
-                                        >Hapus</a>
-                                        </div>
-                                    </td> -->
 
                                 </tr>
                                 @endforeach                                
@@ -124,28 +114,30 @@
 
 </div>
 
-<div class="modal fade" id="confirmation-modal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-body text-center font-18">
-                <h4 class="padding-top-30 mb-30 weight-500">Apakah Anda Ingin Menghapus Produk?</h4>
-                <div class="padding-bottom-30 row" style="max-width: 170px; margin: 0 auto;">
-                    <div class="col-6">
-                        <button type="button" class="btn btn-secondary border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fe fe-x-square"></i></button>
-                        Tidak
-                    </div>
-                    <div class="col-6">
-                        <form method="post" id="linkhapus">
-                            @method('delete')
-                            @csrf
-                            <button type="submit" class="btn btn-primary border-radius-100 btn-block confirmation-btn"><i class="fe fe-check"></i></button>
-                        </form>
-                        Ya
-                    </div>
-                </div>
-            </div>
+<div class="modal fade" id="hapus" role="dialog" aria-labelledby="editpaket" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Hapus</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form action="" id="delete" method="post">
+                @method("delete")
+                @csrf
+            </form>
+            <span>Apakah Anda Mau menghapus  <span class="map"></span> ?</span>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+            <button type="button" class="btn btn-danger"
+            onclick="document.getElementById('delete').submit()"
+            >Hapus</button>
         </div>
     </div>
+</div>
 </div>
 
 <div class="page-inner containertambahmateri mt--5 d-none">
@@ -238,8 +230,7 @@
 
 @section('js')
 
-
-<script>
+<script type="text/javascript">
 
 $(document).ready(function() {
 
@@ -297,10 +288,12 @@ $(document).ready(function() {
 })
 
 
-function hapus(url){
-    var link_hapus = url.href
-    $('#linkhapus').attr('action',link_hapus)
-}
+function hapus(id,ruang) {
+        $("#upproduk .map").html(ruang)
+        $("#delete").attr("action","{{url('produk')}}"+"/"+id)
+        $("#hapus").modal("show")
+    }
+   
 
 function edit(id,mapel) {
     $("#updatemapel #editnamamapel").val(mapel)
@@ -311,7 +304,7 @@ function edit(id,mapel) {
 
 
 function submitMateri(){
-    if($('#isi_materi').val() == "" || $('#nama_materi').val() ==""){
+    if($('#isi_materi').val() == "" || $('#nama_materi').val() =="" || $('#fasilitas').val() ==""){
         Swal.fire({
           icon: 'error',
           title: 'Gagal',

@@ -57,7 +57,7 @@
                     <div class="col-md-12">
                         <span class="float-left" style="font-size: 24px;">Ikhtisar Perusahaan</span>
                         <!-- <i style="cursor:pointer;" onclick="edit('')" data-toggle="modal" data-target="#editMapel" class="fe fe-edit float-left text-warning mr-3"></i> -->
-                        <button class="btn btn-sm btn-rounded btn-primary float-right" id="btn-tambahmateri"><i class="fas fa-plus"> </i> Tambah Data</button>
+                        <!-- <button class="btn btn-sm btn-rounded btn-primary float-right" id="btn-tambahmateri"><i class="fas fa-plus"> </i> Tambah Data</button> -->
                     </div>
 
                 </div>
@@ -73,14 +73,28 @@
                                 <th>No</th>
                                 <th>Foto Perusahaan</th>
                                 <th>Deskripsi</th>
-                                <th style="width: 10%">Action</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
 
                         <tbody>
+                        @foreach($profil as $p)
 
-                          
+                            
+                            <tr>
+                                <td>{{$loop->iteration}}</td>
+                                <td><img src="{{asset('public/foto_profil/'.$p->foto)}}" alt="..."  style=" height:50px; width:70px;"></td>
+                                <td>{{ $p->deskripsi == null ? "-" : (Illuminate\Support\Str::limit($p->deskripsi, 20, $end='...')) }}</td>
+                        
+                                <td>
+                                <!-- <a href="" class="btn-sm btn-success text-white" data-toggle="modal" data-target="#ModalDetailSS"><i class="fa fa-eye"></i></a> -->
+                                <a href="{{url('ikhtisar/'.$p->id)}}" class="btn-sm btn-warning"><i class="fa fa-edit"></i></a>
+                               
+                                </td>
+                           
 
+                            </tr>
+                            @endforeach                                
 
                         </tbody>
                     </table>

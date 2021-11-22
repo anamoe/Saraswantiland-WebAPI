@@ -9,7 +9,7 @@
 	</div>
 	<div class="card-body text-center">
 
-		<img src="{{asset('public/icon/vvv.png')}}" style="width: 800px;">
+		<img src="{{asset('public/icon/logo-login.png')}}" style="width: 800px;">
 
 	</div>
 	@endsection

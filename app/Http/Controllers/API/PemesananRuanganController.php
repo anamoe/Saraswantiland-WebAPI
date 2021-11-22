@@ -13,7 +13,7 @@ class PemesananRuanganController extends Controller
 
        $rp= $request->all();
        RiwayatPemesanan::create($rp);
-       return "sukses booking ruangan ";
+       return "sukses booking ruang kamar ";
 
        
     }
@@ -23,7 +23,9 @@ class PemesananRuanganController extends Controller
         return RiwayatPemesanan::all();
     }
     public function indexriwayat (){
-        return view('riwayat.index');
+
+        $r = RiwayatPemesanan::orderBy('id','DESC')->get();
+        return view('riwayat.index',compact('r'));
     }
 
 }

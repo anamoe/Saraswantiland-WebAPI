@@ -28,7 +28,6 @@
                     <table id="basic-datatables" class="display table table-striped table-hover">
                         <thead>
 
-
                             <tr>
                                 <th>No.</th>
                                 <th>Nama Pemesan</th>
@@ -36,7 +35,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                          
+                            @foreach($r as $p)
+                            <tr>
+
+                                <td>{{$loop->iteration}}</td>
+                                <td>>{{$p->nama_pemesan}}</td>
+                                <td>{{$p->no_telp}}</td>
+                                
+
+                            </tr>
+
+                            @endforeach
+
                         </tbody>
                     </table>
                 </div>
@@ -50,11 +60,11 @@
 </div>
 
 
-    {{-- modal--}}
+{{-- modal--}}
 
 
 
-    
+
 
 @endsection
 
@@ -63,13 +73,24 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#datassall').DataTable();
+
+        @if(session()->has('message'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil',
+            text: "{{session()->get('message')}}",
+        })
+        @endif
+
+
     });
 
     $('#basic-datatables').DataTable({});
 </script>
 
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+
+
 
 
 @endsection

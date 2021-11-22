@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ProfilPerusahaan;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\File;
 
 class ProfilPerusahaanController extends Controller
 {
@@ -49,6 +51,9 @@ class ProfilPerusahaanController extends Controller
     public function show($id)
     {
         //
+        $ikhtisar = ProfilPerusahaan::where('id',$id)->first();
+      
+        return view('profil.ikhtisar.edit',compact('ikhtisar'));
     }
 
     /**
@@ -59,6 +64,9 @@ class ProfilPerusahaanController extends Controller
      */
     public function edit($id)
     {
+        $ikhtisar = ProfilPerusahaan::where('id',$id)->first();
+      
+        return view('profil.ikhtisar.edit',compact('ikhtisar'));
         //
     }
 
@@ -72,6 +80,32 @@ class ProfilPerusahaanController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $req =  [
+            "deskripsi" => $request->deskripsi,
+        ];
+        // $file = $request->file('image');
+        
+
+        if($request->file('images')){
+
+            
+            $tujuan_upload = public_path('foto_profil');
+    
+            $file = $request->file('images');
+            $namaFile = Carbon::now()->format('YmdHs') . $file->getClientOriginalName();
+            File::delete($tujuan_upload . '/' . ProfilPerusahaan::find($id)->foto);
+            $file->move($tujuan_upload, $namaFile);
+            $req['foto'] = $namaFile;
+
+            // dd($file);
+            ProfilPerusahaan::where('id','=',$id)->update($req);
+            
+        }
+       
+        
+       
+        return redirect('ikhtisar')->with('message', 'Ikhtisar Perusahaan Berhasil Diubah');
+        
     }
 
     /**

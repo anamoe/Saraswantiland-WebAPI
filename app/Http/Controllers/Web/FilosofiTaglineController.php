@@ -16,14 +16,14 @@ class FilosofiTaglineController extends Controller
     public function index()
     {
         //
-        $filosofi= FilosofiTagline::all();
+        $filosofi= FilosofiTagline::where('type','filosofi')->get();
         return view('alatpemasaran.filosofi.index',compact('filosofi'));
        
     }
     public function indextagline()
     {
         //
-        $tagline= FilosofiTagline::all();
+        $tagline= FilosofiTagline::where('type','tagline')->get();
         return view('alatpemasaran.tagline.index',compact('tagline'));
        
     }
@@ -31,74 +31,62 @@ class FilosofiTaglineController extends Controller
     public function indexcontact()
     {
         //
-        $contact= FilosofiTagline::all();
+        $contact= FilosofiTagline::whereIn('type',['instagram','website','kontak'])->get();
         return view('alatpemasaran.contact.index',compact('contact'));
        
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function updatetagline(Request $request)
     {
         //
+        $ft = FilosofiTagline::where('type','tagline')->first();
+        $ft->update($request->except(['_token','_method']));
+     
+        return redirect('tagline')->with('message', 'Tagline Perusahaan Berhasil Diubah');
+    
+       
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function updatefilosofi(Request $request)
     {
         //
+    
+        $ft = FilosofiTagline::where('type','filosofi')->first();
+        $ft->update($request->except(['_token','_method']));
+     
+        return redirect('filosofi')->with('message', 'Filosofi Perusahaan Berhasil Diubah');
+       
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function updatekontak(Request $request)
     {
         //
+     
+        $ft = FilosofiTagline::where('type','kontak')->first();
+        $ft->update($request->except(['_token','_method']));
+     
+     
+        return redirect('contact')->with('message', 'KontakPerusahaan Berhasil Diubah');
+       
+    }
+    public function showtagline()
+    {
+        //
+      
+        $ft = FilosofiTagline::where('type','tagline')->first();
+        return view('alatpemasaran.tagline.edit',compact('ft'));
+        
+    
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function showfilosofi()
     {
         //
+      
+        $ft = FilosofiTagline::where('type','filosofi')->first();
+        return view('alatpemasaran.filosofi.edit',compact('ft'));
+        
+    
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-}
+   }

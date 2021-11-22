@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\DaftarLantai;
+use App\Models\DaftarRuangan;
 
 
 class LantaiController extends Controller
@@ -40,6 +41,25 @@ class LantaiController extends Controller
     public function store(Request $request)
     {
         //
+      
+        $idlantai = DaftarLantai::create([
+            "nomor_lantai"=>$request->nomor_lantai,
+            "status"=>$request->status,
+        ])->id;
+        if($request->has('nomor_ruangan')){
+            foreach($request->nomor_ruangan as $no=>$nomor_ruangan){
+                DaftarRuangan::create([
+                    "nomor_ruangan"=>$nomor_ruangan,
+                    "status"=>$request->status_ruangan[$no],
+                    "deskripsi"=>$request->deskripsi[$no],
+                    "type"=>$request->type[$no],
+                    "luas"=>$request->luas[$no],
+                    "link_youtube"=>$request->link_youtube[$no],
+                    "lantai_id"=>$idlantai,
+                ]);
+            }
+        }
+        return redirect()->back()->with('message', 'Lantai Berhasil Ditambahkan');
     }
 
     /**
@@ -74,6 +94,15 @@ class LantaiController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $l = DaftarLantai::where('id',$id)->first();
+        $l->update($request->all());
+
+         DaftarRuangan::where('lantai_id',$id)->update([
+            'status' =>$request->status
+        ]);
+
+        return redirect()->back()->with('message','Update Berhasil ');
+
     }
 
     /**
@@ -85,5 +114,10 @@ class LantaiController extends Controller
     public function destroy($id)
     {
         //
+
+        DaftarRuangan::where('lantai_id',$id)->delete();
+        DaftarLantai::destroy($id);
+
+        return redirect()->back()->with('message','Berhasil Hapus');
     }
 }
