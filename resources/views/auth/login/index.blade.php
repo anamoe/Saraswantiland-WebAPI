@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{{asset('public/css/csslogin.css')}}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="icon" href="{{asset('public/icon/logo.png')}}" type="image/x-icon"/>
+    <link rel="icon" href="{{asset('public/icon/logo.png')}}" type="image/x-icon" />
     <style>
 
 
@@ -14,25 +14,6 @@
 
 <body style="background-color: #1597E5;">
     <br>
-
-
-    @if(session()->has('message'))
-
-    <div class="notif col-10 col-xs-11 col-sm-4 alert alert-success d-block center" role="alert" id="notif">
-
-        <span data-notify="icon" class="fa fa-bell"></span>
-        <span data-notify="title">Success</span> <br>
-        <span data-notify="message">{{session()->get('message')}}</span>
-    </div>
-    @endif
-    @if(session()->has('error'))
-    <div class="notif col-10 col-xs-11 col-sm-4 alert alert-danger d-block" role="alert" id="notif">
-
-        <span data-notify="icon" class="fa fa-bell"></span>
-        <span data-notify="title">Gagal</span> <br>
-        <span data-notify="message">{{session()->get('error')}}</span>
-    </div>
-    @endif
 
 
 
@@ -48,6 +29,36 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="card2 card border-0 px-4 py-5">
+
+
+
+                        @if(session()->has('message'))
+
+                        <div class="alert alert-danger" role="alert" id="notif">
+
+                            <span data-notify="icon" class="fa fa-bell"></span>
+                            <span data-notify="title">Success</span> <br>
+                            <span data-notify="message">{{session()->get('message')}}</span>
+                        </div>
+                        @endif
+                        @if(session()->has('error'))
+                        <div class="alert alert-danger" role="alert" id="notif">
+
+                            <span data-notify="icon" class="fa fa-bell"></span>
+                            <span data-notify="title">Gagal</span> <br>
+                            <span data-notify="message">{{session()->get('error')}}</span>
+                        </div>
+                        @endif
+
+                        @if (count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <ul>
+
+                                <li>{{ "Form tidak boleh kosong" }}</li>
+
+                            </ul>
+                        </div>
+                        @endif
 
                         <br><br><br><br>
                         <form action="{{route('login')}}" method="post" class="login-form">

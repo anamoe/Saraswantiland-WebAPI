@@ -39,19 +39,19 @@ class GetDataController extends Controller
         $pp=  ProdukPerusahaan::get();
       
 
-        foreach ($pp as $key => $value) {
-            # code...
+        // foreach ($pp as $key => $value) {
+        //     # code...
 
-            $array[]=[
-                'id'=>$value->id,
+        //     $array[]=[
+        //         'id'=>$value->id,
           
-                ];
+        //         ];
        
-        }
+        // }
 
 
         return response()->json([
-            'produk' => $array
+            'produk' => $pp
         ]);
 
     }
@@ -219,7 +219,7 @@ class GetDataController extends Controller
             ],
             "ip" => [
                 "foto"=>url('public/beranda/'.$b->where('type','ip')->first()->foto),
-                "judul"=>$b->where('type','pp')->first()->judul
+                "judul"=>$b->where('type','ip')->first()->judul
             ],
             "ws" => [
                 "foto"=>url('public/beranda/'.$b->where('type','ws')->first()->foto),
@@ -228,6 +228,10 @@ class GetDataController extends Controller
             "sm" => [
                 "foto"=>url('public/beranda/'.$b->where('type','sm')->first()->foto),
                 "judul"=>$b->where('type','sm')->first()->judul
+            ],
+            "produk" => [
+                "foto"=>url('public/beranda/'.$b->where('type','produk')->first()->foto),
+                "judul"=>$b->where('type','produk')->first()->judul
             ],
         ]);
 

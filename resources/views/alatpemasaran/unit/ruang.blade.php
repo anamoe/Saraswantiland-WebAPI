@@ -60,8 +60,8 @@
                                 <td>{{$p->type}}</td>
                                 <td>{{$p->luas}}</td>
                                 <td>
-                                    <a href="#" onclick="detail('{{$p->id}}','{{$p->status}}','{{$p->lantai_id}}','{{$p->nomor_ruangan}}','{{$p->deskripsi}}','{{$p->type}}','{{$p->luas}}','{{asset('public/foto_ruangan/'.$p->foto_ruangan)}}')" class="btn-sm btn-success text-white" data-toggle="modal" data-target="#ModalDetailSS"><i class="fa fa-eye"></i></a>
-                                    <a href="#" class="btn-sm btn-warning" data-toggle="modal" data-target="#ModalEditSS" onclick="edit('{{$p->id}}','{{$p->status}}','{{$p->lantai_id}}','{{$p->nomor_ruangan}}','{{$p->deskripsi}}','{{$p->type}}','{{$p->luas}}','{{asset('public/foto_ruangan/'.$p->foto_ruangan)}}')">
+                                    <a href="#" onclick="detail('{{$p->id}}','{{$p->status}}','{{$p->lantai_id}}','{{$p->nomor_ruangan}}','{{$p->deskripsi}}','{{$p->type}}','{{$p->luas}}','{{asset('public/foto_ruangan/'.$p->foto_ruangan)}}','{{$p->link_youtube}}')" class="btn-sm btn-success text-white" data-toggle="modal" data-target="#ModalDetailSS"><i class="fa fa-eye"></i></a>
+                                    <a href="#" class="btn-sm btn-warning" data-toggle="modal" data-target="#ModalEditSS" onclick="edit('{{$p->id}}','{{$p->status}}','{{$p->lantai_id}}','{{$p->nomor_ruangan}}','{{$p->deskripsi}}','{{$p->type}}','{{$p->luas}}','{{asset('public/foto_ruangan/'.$p->foto_ruangan)}}','{{$p->link_youtube}}')">
 
 
                                         <i class="fa fa-edit"></i></a>
@@ -239,6 +239,16 @@
                             <input type="text" id="eluas" name="luas" class="form-control">
                         </div>
                     </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Link Youtube</label>
+                        <div class="col-sm-9">
+                            <input type="text" id="elink_youtube"  name="link_youtube" class="form-control">
+                        </div>
+                    </div>
+
+
+
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Foto Beranda Apps</label>
                         <div class="col-sm-9">
@@ -336,6 +346,14 @@
                         </div>
                     </div>
 
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Link Youtube</label>
+                        <div class="col-sm-9">
+                            <input type="text" id="elink_youtube"  name="link_youtube" disabled class="form-control">
+                        </div>
+                    </div>
+
+
                 </form>
             </div>
             <div class="modal-footer">
@@ -403,7 +421,7 @@
         }
     }
 
-    function edit(id, status, lantai, ruang, deskripsi, type, luas,tumbnail) {
+    function edit(id, status, lantai, ruang, deskripsi, type, luas,tumbnail,youtube) {
         $("#upruang #estatus").val(status)
         $("#upruang #elantai_id").val(lantai)
         $("#upruang #etype").val(type)
@@ -413,20 +431,21 @@
         $("#upruang #editruang").val(tumbnail)
         $('#editruang').attr('src', tumbnail);
 
-
+        $("#upruang #elink_youtube").val(youtube)
         $("#upruang").attr("action", "{{url('ruang')}}" + "/" + id)
         $("ModalEditSS").modal("show")
         console.log(status, id, lantai, ruang,deskripsi,type,tumbnail)
     }
 
     
-    function detail(id, status, lantai, ruang, deskripsi, type, luas,tumbnail) {
+    function detail(id, status, lantai, ruang, deskripsi, type, luas,tumbnail,youtube) {
         $("#druang #estatus").val(status)
         $("#druang #elantai_id").val(lantai)
         $("#druang #etype").val(type)
         $("#druang #eluas").val(luas)
         $("#druang #edeskripsi").val(deskripsi)
         $("#druang #enomor_ruang").val(ruang)
+        $("#druang #elink_youtube").val(youtube)
         $("#druang #dfotoruang").val(tumbnail)
         $('#dfotoruang').attr('src', tumbnail);
         $("ModalDetailSS").modal("show")

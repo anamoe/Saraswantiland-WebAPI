@@ -34,6 +34,11 @@ class AuthController extends Controller
     }
 
     public function logins(Request $request){
+        $this->validate($request,[
+            'email' => 'required',
+            'password' => 'required',
+            
+         ]);
         $input = $request->all();
 
         if (User::where('email', '=', $input['email'])->first() == true) {
