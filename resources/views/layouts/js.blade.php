@@ -49,6 +49,9 @@
 <script type="text/javascript" src="{{asset('public/template/assets/js/summernote-audio.js')}}"></script>
 
 <script src="{{url('public/template/assets/js/swal.js')}}"></script>  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
     
    

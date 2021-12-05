@@ -82,6 +82,8 @@ class ProfilPerusahaanController extends Controller
         //
         $req =  [
             "deskripsi" => $request->deskripsi,
+            "konten" => $request->konten,
+            "iframe" => $request->iframe,
         ];
         // $file = $request->file('image');
         
@@ -100,6 +102,9 @@ class ProfilPerusahaanController extends Controller
             // dd($file);
             ProfilPerusahaan::where('id','=',$id)->update($req);
             
+        }else{
+            ProfilPerusahaan::where('id','=',$id)->update($req);
+
         }
        
         

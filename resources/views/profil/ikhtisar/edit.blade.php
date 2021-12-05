@@ -87,6 +87,14 @@
                        <label>Deskripsi :</label>
                        <textarea class="summernote_dessription" name="deskripsi" id="">{{$ikhtisar->deskripsi}}</textarea>
                     </div>
+                    <div class="form-group">
+                       <label>Iframe Maps :</label>
+                       <textarea class="summernote_dessription" name="iframe" id="">{{$ikhtisar->iframe}}</textarea>
+                    </div>
+                    <div class="form-group">
+                       <label>Konten :</label>
+                       <textarea class="summernote_dessription" name="konten" id="">{{$ikhtisar->konten}}</textarea>
+                    </div>
                    
                  </form>
                  <div class="form-group text-center">

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\DaftarRuangan;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
+use Intervention\Image\ImageManagerStatic as Image;
 
 
 class RuangController extends Controller
@@ -93,12 +94,14 @@ class RuangController extends Controller
         
             $tujuan_upload = public_path('foto_ruangan');
     
-    
-    
             $file = $request->file('image3');
             $namaFile = Carbon::now()->format('YmdHs') . $file->getClientOriginalName();
             File::delete($tujuan_upload . '/' .DaftarRuangan::find($id)->foto_ruangan);
-            $file->move($tujuan_upload, $namaFile);
+            // $file->move($tujuan_upload, $namaFile);
+            $img = Image::make($file->path());
+            $img->resize(1000, 1000, function ($const) {
+                $const->aspectRatio();
+            })->save($tujuan_upload.'/'.$namaFile);
             DaftarRuangan::where('id',$id)->update(['foto_ruangan' => $namaFile,'nomor_ruangan'=>$request->nomor_ruangan,
             'lantai_id'=>$request->lantai_id,  'type'=>$request->type,  'luas'=>$request->luas,  'link_youtube'=>$request->link_youtube,
             'status'=>$request->status,  'deskripsi'=>$request->deskripsi

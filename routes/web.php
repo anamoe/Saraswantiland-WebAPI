@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Auth;
 // Route::get('/', function () {
 //     return view('dashboard');
 // });
-// Route::get('/tes',function(){
-//     return view('alatpemasaran.tagline.edit');
-// });
+Route::get('/maps',function(){
+    return view('lokasi');
+});
 
 Route::get('/logout', [App\Http\Controllers\Web\AuthController::class, 'logout']);
 // Route::get('/login', [App\Http\Controllers\Web\AuthController::class, 'login']);
@@ -33,7 +33,7 @@ Route::get('/', function () {
       
     }  
      else{
-        return view('auth.login.index');
+        return view('lokasi');
     }
 
 })->name('login');

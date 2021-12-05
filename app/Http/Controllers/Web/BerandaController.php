@@ -7,6 +7,7 @@ use App\Models\Beranda;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
+use Intervention\Image\ImageManagerStatic as Image;
 
 
 class BerandaController extends Controller
@@ -53,7 +54,11 @@ class BerandaController extends Controller
         $file = $request->file('image2');
     
         $namaFile = Carbon::now()->format('YmdHs') . $file->getClientOriginalName();
-        $file->move($tujuan_upload, $namaFile);
+        // $file->move($tujuan_upload, $namaFile);
+        $img = Image::make($file->path());
+        $img->resize(500, 500, function ($const) {
+            $const->aspectRatio();
+        })->save($tujuan_upload.'/'.$namaFile);
         Beranda::create(['foto' => $namaFile,'judul'=>$request->judul,'type'=>$request->type
         ]);
         // dd($file);
@@ -104,7 +109,12 @@ class BerandaController extends Controller
             $file = $request->file('image3');
             $namaFile = Carbon::now()->format('YmdHs') . $file->getClientOriginalName();
             File::delete($tujuan_upload . '/' . Beranda::find($id)->foto);
-            $file->move($tujuan_upload, $namaFile);
+            // $file->move($tujuan_upload, $namaFile);
+
+            $img = Image::make($file->path());
+            $img->resize(500, 500, function ($const) {
+                $const->aspectRatio();
+            })->save($tujuan_upload.'/'.$namaFile);
             Beranda::where('id',$id)->update(['foto' => $namaFile,'judul'=>$request->judul,
             'type'=>$request->type]);
 

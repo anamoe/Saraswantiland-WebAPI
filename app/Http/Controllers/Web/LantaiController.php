@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\DaftarLantai;
 use App\Models\DaftarRuangan;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\ImageManagerStatic as Image;
+
 
 
 class LantaiController extends Controller
@@ -41,10 +45,27 @@ class LantaiController extends Controller
     public function store(Request $request)
     {
         //
+
+        if(!$request->hasFile('imagelantai')){
+            return redirect()->back()->with('error', 'Foto Gedung Tidak Boleh Kosong');
+        }
+        
+        $tujuan_upload = public_path('foto_lantai');
+
+    
+        $file = $request->file('imagelantai');
+    
+        $namaFile = Carbon::now()->format('YmdHs') . $file->getClientOriginalName();
+        $img = Image::make($file->path());
+        $img->resize(1000, 1000, function ($const) {
+            $const->aspectRatio();
+        })->save($tujuan_upload.'/'.$namaFile);
+        // $file->move($tujuan_upload, $namaFile);
       
         $idlantai = DaftarLantai::create([
             "nomor_lantai"=>$request->nomor_lantai,
             "status"=>$request->status,
+            "foto_lantai"=>$namaFile
         ])->id;
         if($request->has('nomor_ruangan')){
             foreach($request->nomor_ruangan as $no=>$nomor_ruangan){
@@ -91,15 +112,59 @@ class LantaiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    
     public function update(Request $request, $id)
     {
-        //
-        $l = DaftarLantai::where('id',$id)->first();
-        $l->update($request->all());
+        
 
-         DaftarRuangan::where('lantai_id',$id)->update([
-            'status' =>$request->status
-        ]);
+     
+
+        if($request->hasFile('image3')){
+          
+
+        
+            $tujuan_upload = public_path('foto_lantai');
+    
+    
+    
+            $file = $request->file('image3');
+           
+            $namaFile = Carbon::now()->format('YmdHs') . $file->getClientOriginalName();
+            File::delete($tujuan_upload . '/' .DaftarLantai::find($id)->foto_lantai);
+            // $file->move($tujuan_upload, $namaFile);
+            $img = Image::make($file->path());
+            $img->resize(1000, 1000, function ($const) {
+                $const->aspectRatio();
+            })->save($tujuan_upload.'/'.$namaFile);
+            DaftarLantai::where('id',$id)->update(['foto_lantai' => $namaFile,'nomor_lantai'=>$request->nomor_lantai,
+            'status'=>$request->status
+        
+            ]);
+            
+            DaftarRuangan::where('lantai_id',$id)->update([
+                'status' =>$request->status
+            ]);
+
+    
+        }else{
+            DaftarLantai::where('id',$id)->update(['nomor_lantai'=>$request->nomor_lantai,
+            'status'=>$request->status,
+        
+            ]);
+            DaftarRuangan::where('lantai_id',$id)->update([
+                'status' =>$request->status
+            ]);
+    
+
+
+        }
+
+        // $l = DaftarLantai::where('id',$id)->first();
+        // $l->update($request->all());
+
+        //  DaftarRuangan::where('lantai_id',$id)->update([
+        //     'status' =>$request->status
+        // ]);
 
         return redirect()->back()->with('message','Update Berhasil ');
 

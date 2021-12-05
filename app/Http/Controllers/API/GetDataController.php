@@ -58,6 +58,11 @@ class GetDataController extends Controller
 
     public function getpromo(){
         $p= Promo::all();
+
+        foreach ($p as $key => $value) {
+            # code...
+            $value['foto_promo'] =url('public/foto_promo/'.$value->foto_promo);
+        }
         return response()->json([
             'promo' => $p
         ]);
@@ -103,10 +108,15 @@ class GetDataController extends Controller
 
     }
     public function gettampilangedung3d(){
-        $mtg= ModelTampilanGedung3D::all();
+        $mtg=  ModelTampilanGedung3D::all();
+
+        foreach ($mtg as $key => $value) {
+            # code...
+            $value['foto_gedung'] =url('public/foto_tampilangedung/'.$value->foto_gedung);
+        }
 
         return response()->json([
-            'gedung' => $mtg
+            'gedung' =>$mtg
         ]);
      
 
@@ -136,6 +146,7 @@ class GetDataController extends Controller
           
             $value['status_jumlah_open'] ="$open/$total_ruangan";
             $value['status_progress_open'] ="$presentase_o";
+            $value['foto_lantai'] =url('public/foto_lantai/'.$value->foto_lantai);
 
             // $value['status_progres_hold'] =100- $presentase_h;
             // $value['status_progres_sold'] =100- $presentase_s;
@@ -157,6 +168,11 @@ class GetDataController extends Controller
     public function getunitruangan($id){
        
         $r = DaftarRuangan::where('lantai_id',$id)->get();
+
+        foreach ($r as $key => $value) {
+            $value['foto_ruangan'] =url('public/foto_ruangan/'.$value->foto_ruangan);
+           
+        }
         return response()->json([
             'Daftar Ruangan' => $r
         ]);

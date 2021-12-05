@@ -14,6 +14,14 @@
     });
 </script>
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCk77TfuPCTmAYFGMB2sF27Tb3LhJYHt7Q&libraries=places"></script>
+
 <!-- CSS Files -->
 <link rel="stylesheet" href="{{asset('public/template/assets/css/bootstrap.min.css')}}">
 <link rel="stylesheet" href="{{asset('public/template/assets/css/atlantis.min.css')}}">

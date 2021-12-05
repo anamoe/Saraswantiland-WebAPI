@@ -101,12 +101,29 @@
                 </div>
 
             </div>
+            <div class="row">
+            <div class="col-sm-8 text-center">
+                {!! $profil[0]->iframe !!}
+            </div>
+            <div class="col-sm-4">
+                {!! $profil[0]->konten !!}
+            </div>
+        </div>
+        <hr>
 
         </div>
+  
+    
 
     </div>
+    
+      
+  
+
 
 </div>
+
+
 
 <div class="modal fade" id="confirmation-modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">

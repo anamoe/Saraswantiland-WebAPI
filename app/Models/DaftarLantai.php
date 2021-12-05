@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class DaftarLantai extends Model
 {
     use HasFactory;
-    protected $fillable=['nomor_lantai','status'
+    protected $fillable=['nomor_lantai','status','foto_lantai'
 
     ];
 

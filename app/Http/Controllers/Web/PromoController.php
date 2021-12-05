@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Promo;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
+use Intervention\Image\ImageManagerStatic as Image;
 class PromoController extends Controller
 {
     /**
@@ -53,7 +54,11 @@ class PromoController extends Controller
         $file = $request->file('image');
     
         $namaFile = Carbon::now()->format('YmdHs') . $file->getClientOriginalName();
-        $file->move($tujuan_upload, $namaFile);
+        // $file->move($tujuan_upload, $namaFile);
+        $img = Image::make($file->path());
+        $img->resize(500, 500, function ($const) {
+            $const->aspectRatio();
+        })->save($tujuan_upload.'/'.$namaFile);
         Promo::create(['foto_promo' => $namaFile,'judul_promo'=>$request->judul_promo,'deskripsi_promo'=>$request->deskripsi_promo
         ]);
         // dd($file);
@@ -99,7 +104,11 @@ class PromoController extends Controller
             $file = $request->file('image3');
             $namaFile = Carbon::now()->format('YmdHs') . $file->getClientOriginalName();
             File::delete($tujuan_upload . '/' . Promo::find($id)->foto_promo);
-            $file->move($tujuan_upload, $namaFile);
+            // $file->move($tujuan_upload, $namaFile);
+            $img = Image::make($file->path());
+            $img->resize(500, 500, function ($const) {
+                $const->aspectRatio();
+            })->save($tujuan_upload.'/'.$namaFile);
             Promo::where('id',$id)->update(['foto_promo' => $namaFile,'judul_promo'=>$request->judul_promo,
             'deskripsi_promo'=>$request->deskripsi_promo]);
 

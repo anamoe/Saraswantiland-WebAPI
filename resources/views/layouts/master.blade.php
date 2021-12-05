@@ -13,9 +13,16 @@
 <body>
 	<div class="wrapper">
 
-		@include('layouts.header')
+	@if(auth()->user())
+	@include('layouts.header')
 
-		@include('layouts.sidebar')
+	@include('layouts.sidebar')
+	@else
+	@include('layouts.header-guest')
+
+	@endif
+
+		
 
 
 

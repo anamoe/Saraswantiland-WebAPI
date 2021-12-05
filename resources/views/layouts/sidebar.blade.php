@@ -131,6 +131,15 @@
                     </a>
                 </li>
 
+                <li class="nav-item active">
+                    <a href="{{url('/maps')}}" class="collapsed" aria-expanded="false">
+                        <img class="" src="{{asset('public/icon/riwayat.png')}}" alt="User Avatar " style=" height:20px; width:20px;">
+                        <span class="ml-3 item-text">Lokasi</span>
+
+                    </a>
+                </li>
+
+
             </ul>
         </div>
 
