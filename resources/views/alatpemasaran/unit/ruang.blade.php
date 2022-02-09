@@ -13,14 +13,16 @@
         <div class="col-md-12">
             <div class="px-3">
                 <div class="card-header row">
-                <a href="{{url('lantai')}}" type="submit"class="btn btn-sm btn-primary float-right " style="font-size: 14px;" ><i class="fas fa-arrow-circle-left">&nbsp Lantai</i></a>
+                <a href="{{url('lantai')}}" type="submit"class="btn btn-sm btn-primary float-right " style="font-size: 14px;" ><i class="fas fa-arrow-circle-left">&nbsp Nomor Lantai-{{$lantai->nomor_lantai}}</i></a>
+                <span class="float-left" style="font-size: 24px;"></span>
                     <div class="col-md-12">
     
 
                         <span class="float-left" style="font-size: 24px;">Unit Perusahaan - Ruang Kamar</span>
                         <!-- <i style="cursor:pointer;" onclick="edit('')" data-toggle="modal" data-target="#editMapel" class="fe fe-edit float-left text-warning mr-3"></i> -->
-     
-                        <button class="btn btn-sm btn-rounded btn-primary float-right" data-toggle="modal" data-target="#ModalTambahSS"><i class="fas fa-plus"> </i> Tambah Ruang</button>
+      
+                         <button class="btn btn-sm btn-rounded btn-primary float-right" onclick="tambah('{{$lantai->nomor_lantai}}')" data-toggle="modal" data-target="#ModalTambahSS"><i class="fas fa-plus"> </i> Tambah Ruang</button>
+                        <!-- <a href="#" onclick="tambah('{{$lantai->nomor_lantai}}')" class="btn-sm btn-success text-white" data-toggle="modal" data-target="#ModalTambahSS">Tambah Ruang<i class="fa fa-eye"></i></a> -->
                    
                     </div>
 
@@ -60,8 +62,8 @@
                                 <td>{{$p->type}}</td>
                                 <td>{{$p->luas}}</td>
                                 <td>
-                                    <a href="#" onclick="detail('{{$p->id}}','{{$p->status}}','{{$p->lantai_id}}','{{$p->nomor_ruangan}}','{{$p->deskripsi}}','{{$p->type}}','{{$p->luas}}','{{asset('public/foto_ruangan/'.$p->foto_ruangan)}}','{{$p->link_youtube}}')" class="btn-sm btn-success text-white" data-toggle="modal" data-target="#ModalDetailSS"><i class="fa fa-eye"></i></a>
-                                    <a href="#" class="btn-sm btn-warning" data-toggle="modal" data-target="#ModalEditSS" onclick="edit('{{$p->id}}','{{$p->status}}','{{$p->lantai_id}}','{{$p->nomor_ruangan}}','{{$p->deskripsi}}','{{$p->type}}','{{$p->luas}}','{{asset('public/foto_ruangan/'.$p->foto_ruangan)}}','{{$p->link_youtube}}')">
+                                    <a href="#" onclick="detail('{{$p->id}}','{{$p->status}}','{{$p->lantai_id}}','{{$p->nomor_ruangan}}','{{$p->deskripsi}}','{{$p->type}}','{{$p->luas}}','{{asset('public/foto_ruangan/'.$p->foto_ruangan)}}','{{$p->link_youtube}}','{{$p->getlantai->nomor_lantai}}')" class="btn-sm btn-success text-white" data-toggle="modal" data-target="#ModalDetailSS"><i class="fa fa-eye"></i></a>
+                                    <a href="#" class="btn-sm btn-warning" data-toggle="modal" data-target="#ModalEditSS" onclick="edit('{{$p->id}}','{{$p->status}}','{{$p->lantai_id}}','{{$p->nomor_ruangan}}','{{$p->deskripsi}}','{{$p->type}}','{{$p->luas}}','{{asset('public/foto_ruangan/'.$p->foto_ruangan)}}','{{$p->link_youtube}}','{{$p->getlantai->nomor_lantai}}')">
 
 
                                         <i class="fa fa-edit"></i></a>
@@ -98,6 +100,12 @@
             <div class="modal-body">
                 <form action="{{url('ruang')}}" method="post" id="buatruang" enctype="multipart/form-data" >
                     @csrf
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Nomor Lantai </label>
+                        <div class="col-sm-9">
+                            <input type="text" id="l" name="nomor_ruangan" disabled class="form-control">
+                        </div>
+                    </div>
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Nomor Ruang</label>
                         <div class="col-sm-9">
@@ -151,6 +159,30 @@
                         </div>
                     </div>
 
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Foto Ruangan </label>
+                        <div class="col-sm-9">
+                            <!-- <input type="text" id="foto_slideshow" class="form-control"> -->
+
+                            <label class="col-sm-3 col-form-label">Direkomendasikan : 4MB</label>
+
+                            <div class="form-group upimageposting">
+                                <button type="button" class="btn btn-primary btn-border btn-block" onclick="document.getElementById('fotoss').click()">
+                                    <i class="fa fa-camera" aria-hidden="true" style="font-size: 50px;"></i>
+                                </button>
+                            </div>
+                            <br>
+                            <div class="text-center">
+                        <img class="img" id="fotoruang" src="" alt="Foto Thumbnail" style=" height:50%; width:50%;">
+
+                        <input type="file" onchange="readURLfotoadd(this);" class="d-none" name="image2" accept="image/*"id="fotoss"></input>
+
+                    </div>
+                           
+                        </div>
+                    </div>
+
+
 
 
 
@@ -181,14 +213,13 @@
                     @method('PUT')
                     @csrf
 
-                           
-                 
-                        <!-- <div class="form-group form-inline text-center">
-                                <img class="img" id="editruang" src="" alt="Foto Thumbnail" style=" height:70%; width:70%;">
-                                <i data-toggle="modal" data-target="#upfotoprofil" class="fa fa-edit text-primary" onclick="document.getElementById('uploadimagefileprofile5').click()" style="cursor:pointer;">Upload Thumbnail</i>
-                                <input type="file" onchange="readURLfotoedit(this);" class="d-none" name="image3" accept="image/*" id="uploadimagefileprofile5"></input>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Nomor Lantai </label>
+                        <div class="col-sm-9">
+                            <input type="text" id="l" name="nomor_ruangan" disabled class="form-control">
                         </div>
-                     -->
+                    </div>
+            
                    
 
                     <div class="form-group row">
@@ -250,7 +281,7 @@
 
 
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Foto Beranda Apps</label>
+                        <label class="col-sm-3 col-form-label">Foto Ruangan</label>
                         <div class="col-sm-9">
                             <!-- <input type="text" id="foto_slideshow" class="form-control"> -->
 
@@ -304,6 +335,12 @@
                         <img class="img" id="dfotoruang" src="" alt="Foto Thumbnail" style=" height:50%; width:50%;">
                        
 
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Nomor Lantai </label>
+                        <div class="col-sm-9">
+                            <input type="text" id="l" name="nomor_ruangan" disabled class="form-control">
+                        </div>
                     </div>
 
                     <div class="form-group row">
@@ -421,9 +458,16 @@
         }
     }
 
-    function edit(id, status, lantai, ruang, deskripsi, type, luas,tumbnail,youtube) {
+    function tambah(lantai){
+        $("#buatruang #l").val(lantai)
+        console.log(lantai)
+
+    }
+
+    function edit(id, status, lantai, ruang, deskripsi, type, luas,tumbnail,youtube,lantais) {
         $("#upruang #estatus").val(status)
         $("#upruang #elantai_id").val(lantai)
+        $("#upruang #l").val(lantais)
         $("#upruang #etype").val(type)
         $("#upruang #eluas").val(luas)
         $("#upruang #edeskripsi").val(deskripsi)
@@ -438,9 +482,10 @@
     }
 
     
-    function detail(id, status, lantai, ruang, deskripsi, type, luas,tumbnail,youtube) {
+    function detail(id, status, lantai, ruang, deskripsi, type, luas,tumbnail,youtube,lantais) {
         $("#druang #estatus").val(status)
         $("#druang #elantai_id").val(lantai)
+        $("#druang #l").val(lantais)
         $("#druang #etype").val(type)
         $("#druang #eluas").val(luas)
         $("#druang #edeskripsi").val(deskripsi)
@@ -478,6 +523,19 @@
 
             reader.onload = function(e) {
                 $('#dfotoruang')
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function readURLfotoadd(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#fotoruang')
                     .attr('src', e.target.result);
             };
 

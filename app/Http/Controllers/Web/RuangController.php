@@ -44,8 +44,38 @@ class RuangController extends Controller
     public function store(Request $request)
     {
         //
+        if(!$request->hasFile('image2')){
+            return redirect()->back()->with('error', 'Foto  Tidak Boleh Kosong');
+        }
+        
+        $tujuan_upload = public_path('foto_ruangan');
+
     
-        DaftarRuangan::create($request->except('_token'));
+        $file = $request->file('image2');
+    
+        $namaFile = Carbon::now()->format('YmdHs') . $file->getClientOriginalName();
+
+        $img = Image::make($file->path());
+        $img->resize(500, 500, function ($const) {
+            $const->aspectRatio();
+        })->save($tujuan_upload.'/'.$namaFile);
+   
+        // $file->move($tujuan_upload, $namaFile);
+        DaftarRuangan::create([
+            "foto_ruangan"=>$namaFile,
+            "nomor_ruangan"=>$request->nomor_ruangan,
+            "status"=>$request->status,
+            "deskripsi"=>$request->deskripsi,
+            "type"=>$request->type,
+            "luas"=>$request->luas,
+            "link_youtube"=>$request->link_youtube,
+            "lantai_id"=>$request->lantai_id,
+       
+        
+        ]);
+
+    
+        // DaftarRuangan::create($request->except('_token'));
         return redirect()->back()->with('message', 'Ruangan Berhasil Ditambahkan');
     }
 
@@ -60,7 +90,9 @@ class RuangController extends Controller
         //
         
         $ruang= DaftarRuangan::where('lantai_id',$id)->with('getlantai')->get();
-        return view('alatpemasaran.unit.ruang',compact('ruang','id'));
+                   //
+                   $lantai= DaftarLantai::where('id',$id)->first();
+        return view('alatpemasaran.unit.ruang',compact('ruang','id','lantai'));
     }
 
     /**
@@ -73,6 +105,9 @@ class RuangController extends Controller
     {
         //
         $ruang= DaftarRuangan::where('lantai_id',$id)->with('getlantai')->get();
+           //
+      
+
         return view('alatpemasaran.unit.ruang',compact('ruang','id'));
     }
 
@@ -137,7 +172,7 @@ class RuangController extends Controller
         
         }
         
-        DaftarLantai::where('nomor_lantai', '=', $request->lantai_id)
+        DaftarLantai::where('id', '=', $request->lantai_id)
         ->update([
             'status'=> $status_lantai
         ]);

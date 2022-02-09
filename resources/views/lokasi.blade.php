@@ -1,26 +1,104 @@
-@extends('layouts.master')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('css')
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>SARASWANTILAND</title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    @include('layouts.css')
 
-@endsection
-@section('content')
-<div class="container mt-4">
-        <h3 class="text-center uppercase font-weight-bold mb-2 pt-2">Lokasi </h3>
+
+</head>
+
+<body>
+
+    <br><br><br>
+
+    <div class="page-inner containermateri mt--5 d-block">
+
         <div class="row">
-            <div class="col-sm-8 text-center">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1976.7388391395796!2d110.37633181295807!3d-7.739048387732724!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a592cb4a9bec3%3A0x4a90a2346dd9f452!2sMataram%20City!5e0!3m2!1sid!2sid!4v1638553311444!5m2!1sid!2sid" width="100%" height="550" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+
+            <div class="col-md-12">
+                <div class="px-3">
+                    <div class="card-header row">
+                        <div class="col-md-12">
+                            <span class="float-left" style="font-size: 24px;">Ikhtisar Perusahaan</span>
+
+
+                        </div>
+
+                    </div>
+                    <div class="row listmateri card mx-2 py-3 mt-3">
+
+
+
+                        @foreach($profil as $p)
+
+
+                        <center>
+                            <td><img src="{{asset('public/foto_profil/'.$p->foto)}}" alt="..." style=" height:150px; width:80%;"></td>
+                        </center>
+
+
+                        @endforeach
+
+
+
+                    </div>
+
+
+                    <div class="row listmateri card mx-2 py-3 mt-3">
+
+
+
+                        @foreach($profil as $p)
+
+
+                        <td>{{ $p->deskripsi == null ? "-" : (Illuminate\Support\Str::limit($p->deskripsi, 2000, $end='...')) }}</td>
+
+                        @endforeach
+
+
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-8 text-center"style=" height:150px; width:100%;">
+                        {!! $profil[0]->iframe !!}
+                    </div>
+                    <div class="col-sm-4">
+                        {!! $profil[0]->konten !!}
+                    </div>
+                </div>
+                <hr>
+
             </div>
-            <div class="col-sm-4">
-            <h4>Official Website</h4><h4><a href="www.bimbelinvocs.com">https://app.saraswantiland.com</a></h4><p>Instagram &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : <a href="https://www.instagram.com/mataramcityjogja/">@saraswantiland</a><br>LinkedIn &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;: <br>Youtube &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;: Saraswantiland</p><p>Mail Business &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : admin@saraswantiland.com</p><h4>Representative Office</h4><ul><li>Jln Mataram</li><li>Area Jogja</li></ul>
+
+        </div>
+
+    </div>
+
+    </div>
+
+
+    <footer class="footer">
+        <div class="container-fluid">
+            <nav class="pull-left">
+
+            </nav>
+            <div class="copyright ml-auto">
+                <a href="/">SARASWANTILAND</a>
             </div>
         </div>
-        <hr>
+    </footer>
     </div>
-@endsection
-
-@section('js')
 
 
+    </div>
 
+    @include('layouts.js')
 
-@endsection
+</body>
+
+</html>

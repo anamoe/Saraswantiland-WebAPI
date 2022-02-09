@@ -14,10 +14,16 @@ class AuthController extends Controller
     public function registers(Request $request){
 
         $this->validate($request, [
-         
-            'password'              => 'required|min:6',
-            'konfirmasi_password' => 'same:password'
+            'email' => 'required',
+            'name' => 'required',
+            'password'              => 'required',
+            // 'konfirmasi_password' => 'same:password'
         ]);
+
+        if($request->password!=$request->konfirmasi_password){
+            return redirect()->back()->with('error', 'Pastikan Password dan Konfirmasi Password Sama');
+
+        }
 
 
         if (User::where('email', '=', $request->email)->first() == false) {
@@ -28,7 +34,7 @@ class AuthController extends Controller
             User::create($request->except(['_token']));
             return redirect('login')->with('message', 'Berhasil Mendaftar');
         } else {
-            return redirect()->back()->with('message', 'EMAIL sudah terdaftar');
+            return redirect()->back()->with('error', 'EMAIL sudah terdaftar');
         }
 
     }

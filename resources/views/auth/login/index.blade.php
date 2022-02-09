@@ -31,7 +31,6 @@
                     <div class="card2 card border-0 px-4 py-5">
 
 
-
                         @if(session()->has('message'))
 
                         <div class="alert alert-danger" role="alert" id="notif">
@@ -55,6 +54,7 @@
                             <ul>
 
                                 <li>{{ "Form tidak boleh kosong" }}</li>
+                                
 
                             </ul>
                         </div>

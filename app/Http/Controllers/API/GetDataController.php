@@ -13,7 +13,8 @@ use App\Models\ProdukPerusahaan;
 use App\Models\ProfilPerusahaan;
 use App\Models\Promo;
 use Goutte\Client;
-
+use App\Models\BisnisProperti;
+use App\Models\KeuntunganInvestasi;
 
 class GetDataController extends Controller
 {
@@ -37,17 +38,11 @@ class GetDataController extends Controller
 
     public function getproduk(){
         $pp=  ProdukPerusahaan::get();
+        foreach ($pp as $key => $value) {
+            # code...
+            $value['foto'] =url('public/foto_produk/'.$value->foto);
+        }
       
-
-        // foreach ($pp as $key => $value) {
-        //     # code...
-
-        //     $array[]=[
-        //         'id'=>$value->id,
-          
-        //         ];
-       
-        // }
 
 
         return response()->json([
@@ -137,27 +132,29 @@ class GetDataController extends Controller
             $sold = DaftarRuangan::where('status','sold')->where('lantai_id',$value->id)->count();
 
             
+            if($open!=0){
+                $progres= $open / $total_ruangan;
 
-            // return $hold;
-            $presentase_o = $open / $total_ruangan;
-            $presentase_h = $hold / $total_ruangan*100;
-            $presentase_s = $sold / $total_ruangan*100;
+
+            }else{
+
+                $progres = "ruangan-kosong";
+
+            }
+         
+          
 
           
             $value['status_jumlah_open'] ="$open/$total_ruangan";
-            $value['status_progress_open'] ="$presentase_o";
+            $value['status_progress_open'] ="$progres";
+            // $value['status_progress_h'] ="$presentase_h";
+            // $value['status_progress_s'] ="$presentase_s";
+            // $value['status_progress_all'] ="$presentase";
             $value['foto_lantai'] =url('public/foto_lantai/'.$value->foto_lantai);
-
-            // $value['status_progres_hold'] =100- $presentase_h;
-            // $value['status_progres_sold'] =100- $presentase_s;
-           
 
         }
 
-        // return $lantai;
-   
-     
-  
+
 
         return response()->json([
             'Daftar Lantai' => $lantai
@@ -250,6 +247,34 @@ class GetDataController extends Controller
                 "judul"=>$b->where('type','produk')->first()->judul
             ],
         ]);
+
+    }
+
+    public function getbisnis(){
+        $r =BisnisProperti::get();
+
+        foreach ($r as $key => $value) {
+            $value['foto'] =url('public/bisnisproperti/'.$value->foto);
+           
+        }
+        return response()->json([
+            'Bisnis Properti' => $r
+        ]);
+     
+
+    }
+
+    public function getinvestasi(){
+        $r =KeuntunganInvestasi::get();
+
+        foreach ($r as $key => $value) {
+            $value['foto'] =url('public/keuntunganinvestasi/'.$value->foto);
+           
+        }
+        return response()->json([
+            'Investasi' => $r
+        ]);
+     
 
     }
 

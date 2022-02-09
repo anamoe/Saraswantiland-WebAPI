@@ -16,9 +16,10 @@ use Illuminate\Support\Facades\Auth;
 // Route::get('/', function () {
 //     return view('dashboard');
 // });
-Route::get('/maps',function(){
-    return view('lokasi');
-});
+// Route::get('/maps',function(){
+//     return view('lokasi');
+// });
+Route::get('/maps', [App\Http\Controllers\Web\ProfilPerusahaanController::class,'indexlanding']);
 
 Route::get('/logout', [App\Http\Controllers\Web\AuthController::class, 'logout']);
 // Route::get('/login', [App\Http\Controllers\Web\AuthController::class, 'login']);
@@ -33,7 +34,7 @@ Route::get('/', function () {
       
     }  
      else{
-        return view('lokasi');
+        return view('auth.login.index');
     }
 
 })->name('login');
@@ -66,7 +67,7 @@ Route::get('/profil', [App\Http\Controllers\Web\AuthController::class, 'index'])
  Route::post('/updateprofile', [App\Http\Controllers\Web\AuthController::class, 'update_profil'])->name('updateprofile');
 Route::post('/updatepass', [App\Http\Controllers\Web\AuthController::class, 'update_pass'])->name('updatepass');
 Route::post('perbaruifoto', [App\Http\Controllers\Web\AuthController::class, 'update_foto']);
-
+Route::resource('unit',App\Http\Controllers\Web\UnitController::class);
 
 
 Route::resource('produk',App\Http\Controllers\Web\ProdukPerusahaanController::class);
@@ -80,7 +81,7 @@ Route::get('/filosofi', [App\Http\Controllers\Web\FilosofiTaglineController::cla
 Route::get('/tagline', [App\Http\Controllers\Web\FilosofiTaglineController::class, 'indextagline']);
 Route::get('/contact', [App\Http\Controllers\Web\FilosofiTaglineController::class, 'indexcontact']);
 
-Route::patch('/update-kontak', [App\Http\Controllers\Web\FilosofiTaglineController::class, 'updatekontak']);
+Route::patch('/update-kontak/{id}', [App\Http\Controllers\Web\FilosofiTaglineController::class, 'updatekontak']);
 Route::patch('/update-filosofi', [App\Http\Controllers\Web\FilosofiTaglineController::class, 'updatefilosofi']);
 Route::patch('/update-tagline', [App\Http\Controllers\Web\FilosofiTaglineController::class, 'updatetagline']);
 
@@ -93,11 +94,19 @@ Route::get('/get-tagline', [App\Http\Controllers\Web\FilosofiTaglineController::
 
 
 Route::resource('gedung', App\Http\Controllers\Web\TampilanGedungController::class);
+Route::resource('bisnis', App\Http\Controllers\Web\BisnisPropertiController::class);
 // Route::get('/produk-edit/{$id}',[App\Http\Controllers\Web\ProdukPerusahaanController::class,'editt']);
 
 Route::resource('/produk',App\Http\Controllers\Web\ProdukPerusahaanController::class);
+Route::resource('/investasi',App\Http\Controllers\Web\KeuntunganInvestasiController::class);
 
 Route::get('/riwayat',[App\Http\Controllers\API\PemesananRuanganController::class, 'indexriwayat']);
+
+Route::post('add-riwayat',[App\Http\Controllers\API\PemesananRuanganController::class, 'addriwayat']);
+
+Route::delete('del-riwayat/{id}',[App\Http\Controllers\API\PemesananRuanganController::class, 'delriwayat']);
+
+Route::patch('up-riwayat/{id}',[App\Http\Controllers\API\PemesananRuanganController::class, 'upriwayat']);
 
 Route::resource('ikhtisar', App\Http\Controllers\Web\ProfilPerusahaanController::class);
 

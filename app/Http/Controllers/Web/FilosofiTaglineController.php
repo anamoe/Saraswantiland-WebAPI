@@ -58,12 +58,14 @@ class FilosofiTaglineController extends Controller
        
     }
 
-    public function updatekontak(Request $request)
+    public function updatekontak(Request $request,$id)
     {
         //
      
-        $ft = FilosofiTagline::where('type','kontak')->first();
+        $ft = FilosofiTagline::where('id',$id)->first();
         $ft->update($request->except(['_token','_method']));
+
+        // dd($request);
      
      
         return redirect('contact')->with('message', 'KontakPerusahaan Berhasil Diubah');

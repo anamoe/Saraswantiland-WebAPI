@@ -155,6 +155,14 @@
                         </div>
                     </div>
 
+                    <div class="form-group row">
+                        <!-- <label class="col-sm-3 col-form-label">ID</label> -->
+                        <div class="col-sm-9">
+                        <input type="hidden" id="eid" name="id">
+                            
+                        </div>
+                    </div>
+
 
                 </form>
             </div>
@@ -193,8 +201,9 @@ Swal.fire({
     function edit(id,deskripsi,type) {
         $("#upkontak #edeskripsi").val(deskripsi)
         $("#upkontak #type").val(type)
+        $("#upkontak #eid").val(id)
        
-        $("#upkontak").attr("action","{{url('update-kontak')}}")
+        $("#upkontak").attr("action","{{url('update-kontak')}}"+ "/" + id)
         $("ModalEditSS").modal("show")
         console.log(id)
     }

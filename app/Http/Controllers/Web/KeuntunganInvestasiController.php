@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\BisnisProperti;
+use App\Models\KeuntunganInvestasi;
 use Illuminate\Http\Request;
-use App\Models\ProdukPerusahaan;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManagerStatic as Image;
-class ProdukPerusahaanController extends Controller
+
+class KeuntunganInvestasiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,8 +19,8 @@ class ProdukPerusahaanController extends Controller
     public function index()
     {
         //
-        $produk = ProdukPerusahaan::all();
-        return view('profil.produk.index',compact('produk'));
+        $k= KeuntunganInvestasi::all();
+        return view('keuntunganinvestasi.index',compact('k'));
     }
 
     /**
@@ -42,14 +42,14 @@ class ProdukPerusahaanController extends Controller
     public function store(Request $request)
     {
         //
-        if(!$request->hasFile('images')){
+        if(!$request->hasFile('image')){
             return redirect()->back()->with('error', 'Foto  Tidak Boleh Kosong');
         }
         
-        $tujuan_upload = public_path('foto_produk');
+        $tujuan_upload = public_path('keuntungan_investasi');
 
     
-        $file = $request->file('images');
+        $file = $request->file('image');
     
         $namaFile = Carbon::now()->format('YmdHs') . $file->getClientOriginalName();
 
@@ -59,13 +59,10 @@ class ProdukPerusahaanController extends Controller
         })->save($tujuan_upload.'/'.$namaFile);
    
         // $file->move($tujuan_upload, $namaFile);
-        ProdukPerusahaan::create(['foto' => $namaFile,'nama_produk_perusahaan'=>$request->nama_produk_perusahaan,
-        'fasilitas'=>$request->fasilitas,'deskripsi'=>$request->deskripsi,'fasilitas'=> $request->fasilitas
+        KeuntunganInvestasi::create(['foto' => $namaFile,'judul'=>$request->judul,"deskripsi"=>$request->deskripsi
         ]);
-
-        // ProdukPerusahaan::create($request->except('_token'));
-        return redirect()->back()->with('message', 'Produk Perusahaan Berhasil Ditambahkan');
-        
+        // dd($file);
+        return redirect()->back()->with('message', 'Foto Bisnis Properti Berhasil Ditambahkan');
     }
 
     /**
@@ -77,10 +74,9 @@ class ProdukPerusahaanController extends Controller
     public function show($id)
     {
         //
-        $produk = ProdukPerusahaan::where('id',$id)->first();
+        $k = KeuntunganInvestasi::where('id',$id)->first();
         
-        return view('profil.produk.edit',compact('produk'));
-    
+        return view('keuntunganinvestasi.edit',compact('k'));
     }
 
     /**
@@ -92,9 +88,7 @@ class ProdukPerusahaanController extends Controller
     public function edit($id)
     {
         //
-        $produk = ProdukPerusahaan::where('id',$id)->first();
-      
-        return view('profil.produk.edit',compact('produk'));
+
     }
 
     /**
@@ -108,39 +102,36 @@ class ProdukPerusahaanController extends Controller
     {
         //
         $req =  [
-            "nama_produk_perusahaan" => $request->nama_produk_perusahaan,
+     
             "deskripsi" => $request->deskripsi,
-            "fasilitas" => $request->fasilitas,
+            "judul" => $request->judul,
         ];
-        // $file = $request->file('image');
+        if($request->hasFile('image3')){
+
         
-
-        if($request->file('images')){
-
-            
-            $tujuan_upload = public_path('foto_produk');
+            $tujuan_upload = public_path('keuntungan_investasi');
     
-            $file = $request->file('images');
+    
+            $file = $request->file('image3');
             $namaFile = Carbon::now()->format('YmdHs') . $file->getClientOriginalName();
-            File::delete($tujuan_upload . '/' . ProdukPerusahaan::find($id)->foto);
-            
+            File::delete($tujuan_upload . '/' . KeuntunganInvestasi::find($id)->foto);
+            // $file->move($tujuan_upload, $namaFile);
             $img = Image::make($file->path());
             $img->resize(500, 500, function ($const) {
                 $const->aspectRatio();
             })->save($tujuan_upload.'/'.$namaFile);
-            // $file->move($tujuan_upload, $namaFile);
+            // KeuntunganInvestasi::where('id',$id)->update(['foto' => $namaFile]);
             $req['foto'] = $namaFile;
 
-            // dd($file);
-            ProdukPerusahaan::where('id','=',$id)->update($req);
-            
-        }else{
-            ProdukPerusahaan::where('id','=',$id)->update($req);
+            KeuntunganInvestasi::where('id','=',$id)->update($req);
+    
+  
+        }
+        else{
+            KeuntunganInvestasi::where('id','=',$id)->update($req);
 
         }
-        // ProdukPerusahaan::where('id', '=', $id)->update($request->except(['_token','_method']));
-     
-        return redirect('produk')->with('message', 'Produk Perusahaan Berhasil Diubah');
+        return redirect('investasi')->with('message', 'Produk Perusahaan Berhasil Diubah');
     }
 
     /**
@@ -152,7 +143,15 @@ class ProdukPerusahaanController extends Controller
     public function destroy($id)
     {
         //
-        ProdukPerusahaan::destroy($id);
-        return redirect()->back()->with('message','Berhasil Dihapus');
+        $tujuan_upload = public_path('keuntungan_investasi');
+        $s = KeuntunganInvestasi::where('id', $id)->first();
+        if ($s) {
+
+            File::delete($tujuan_upload . '/' . $s->foto);
+            KeuntunganInvestasi::destroy($id);
+
+            return redirect()->back()->with('message','Berhasil Dihapus');
+        }
+      
     }
 }

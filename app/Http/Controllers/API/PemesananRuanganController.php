@@ -28,4 +28,27 @@ class PemesananRuanganController extends Controller
         return view('riwayat.index',compact('r'));
     }
 
+    public function addriwayat (Request $request){
+
+        RiwayatPemesanan::create($request->all());
+        return redirect()->back()->with('message', 'Data Berhasil Ditambahkan');
+       
+    }
+
+    public function delriwayat ($id){
+
+        RiwayatPemesanan::destroy($id);
+        return redirect()->back()->with('message', 'Data Berhasil DiHapus');
+       
+    }
+
+    public function upriwayat (Request $request,$id){
+
+        RiwayatPemesanan::where('id',$id)->update([
+            'nama_pemesan'=>$request->nama_pemesan,'no_telp'=>$request->no_telp
+        ]);
+        return redirect()->back()->with('message', 'Data Berhasil Diperbaharui');
+       
+    }
+
 }

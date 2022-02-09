@@ -35,7 +35,7 @@
              <div class="px-3">
                 <div class="card-header row" style="border: 1px solid black !important;">
                     <div class="col-md-12">
-                        <span class="float-left">Produk Perusahaan</span>
+                        <span class="float-left">Keuntungan Investasi</span>
                       
                     </div>
 
@@ -53,16 +53,16 @@
         <div class="col-md-12  mt-5">
            <div class="card">
               <div class="card-header bg-primary">
-                 <h6 class="text-white">Edit Produk Perusahaan  </h6>
+                 <h6 class="text-white">Edit Keuntungan Investasi  </h6>
               </div>
               <div class="card-body">
-                 <form method="post" action="{{url('produk/'.$produk->id)}}" enctype="multipart/form-data" id="submitdata">
+                 <form method="post" action="{{url('investasi/'.$k->id)}}" enctype="multipart/form-data" id="submitdata">
                     @method('patch')
                     @csrf
 
                      <div class="form-group">
-                       <label>Produk Perusahaan</label>
-                       <input type="text" value="{{$produk->nama_produk_perusahaan}}" name="nama_produk_perusahaan" id="nama_materi" class="form-control"/>
+                       <label>Judul </label>
+                       <input type="text" value="{{$k->judul}}" name="judul" id="nama_materi" class="form-control"/>
                     </div>
 
                                          
@@ -78,24 +78,20 @@
                             </div>
                             <br>
                             <div class="text-center">
-                        <img class="img" id="loadfoto"  src="{{asset('public/foto_produk/'.$produk->foto)}}"alt="Foto Thumbnail" style=" height:50%; width:50%;">
+                        <img class="img" id="loadfoto"  src="{{asset('public/keuntungan_investasi/'.$k->foto)}}"alt="Foto Thumbnail" style=" height:50%; width:50%;">
 
-                        <input type="file" onchange="readURLfoto(this);" class="d-none" name="images" accept="image/*"id="editfotoikhtisar"></input>
+                        <input type="file" onchange="readURLfoto(this);" class="d-none" name="image3" accept="image/*"id="editfotoikhtisar"></input>
 
                     </div>
                            
                         </div>
                     </div>
 
-                    <div class="form-group">
-                       <label>Fasilitas :</label>
-                       <textarea  name="fasilitas"class="form-control" id="">{{$produk->fasilitas}}</textarea>
-                    </div>
-                 
+                    
                  
                     <div class="form-group">
                        <label>Deskripsi :</label>
-                       <textarea class="summernote_dessription" name="deskripsi" id="">{{$produk->deskripsi}}</textarea>
+                       <textarea class="form-control" name="deskripsi" id="">{{$k->deskripsi}}</textarea>
                     </div>
                    
                  </form>

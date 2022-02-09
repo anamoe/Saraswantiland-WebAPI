@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\ProfilPerusahaan;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class ProfilPerusahaanController extends Controller
 {
@@ -19,6 +20,12 @@ class ProfilPerusahaanController extends Controller
     {
         $profil = ProfilPerusahaan::all();
         return view('profil.ikhtisar.index',compact('profil'));
+    }
+
+    public function indexlanding()
+    {
+        $profil = ProfilPerusahaan::all();
+        return view('lokasi',compact('profil'));
     }
 
     /**
@@ -96,7 +103,12 @@ class ProfilPerusahaanController extends Controller
             $file = $request->file('images');
             $namaFile = Carbon::now()->format('YmdHs') . $file->getClientOriginalName();
             File::delete($tujuan_upload . '/' . ProfilPerusahaan::find($id)->foto);
-            $file->move($tujuan_upload, $namaFile);
+                
+            $img = Image::make($file->path());
+            $img->resize(500, 500, function ($const) {
+                $const->aspectRatio();
+            })->save($tujuan_upload.'/'.$namaFile);
+            // $file->move($tujuan_upload, $namaFile);
             $req['foto'] = $namaFile;
 
             // dd($file);

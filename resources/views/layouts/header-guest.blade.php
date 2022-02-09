@@ -32,10 +32,10 @@
                             href="{{url('maps')}}">Narahubung</a>
                     </li>
                   
-                        <li class="nav-item border rounded-sm">
+                        <!-- <li class="nav-item border rounded-sm">
                             <a class="nav-link {{ request()->is('masuk') || request()->is('daftar/*') ? 'bg-white text-primary' : '' }}"
                                 href="{{url('login')}}">Masuk</a>
-                        </li>
+                        </li> -->
                    
                 
                 </ul>

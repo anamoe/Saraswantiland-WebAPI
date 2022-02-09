@@ -14,7 +14,7 @@
             <div class="px-3">
                 <div class="card-header row">
                     <div class="col-md-12">
-                        <span class="float-left" style="font-size: 24px;">Gedung Perusahaan</span>
+                        <span class="float-left" style="font-size: 24px;">Bisnis Properti</span>
                         <!-- <i style="cursor:pointer;" onclick="edit('')" data-toggle="modal" data-target="#editMapel" class="fe fe-edit float-left text-warning mr-3"></i> -->
                         <button class="btn btn-sm btn-rounded btn-primary float-right" data-toggle="modal" data-target="#ModalTambahSS"><i class="fas fa-plus"> </i> Tambah Data</button>
                     </div>
@@ -32,20 +32,20 @@
 
                             <tr>
                                 <th>No.</th>
-                                <th>Foto Gedung</th>
+                                <th>Foto Bisnis Properti</th>
                                 <th>Aksi</th>
 
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($gedung as $p)
+                            @foreach($b as $p)
                             <tr>
 
                                 <td>{{$loop->iteration}}</td>
-                                <td><img src="{{asset('public/foto_tampilangedung/'.$p->foto_gedung)}}" alt="..." style=" height:50px; width:70px;"></td>
+                                <td><img src="{{asset('public/bisnisproperti/'.$p->foto)}}" alt="..." style=" height:50px; width:70px;"></td>
                                 <td>
-                                    <a href="#"  onclick="detail('{{$p->id}}','{{asset('public/foto_tampilangedung/'.$p->foto_gedung)}}')"class="btn-sm btn-success text-white" data-toggle="modal" data-target="#ModalDetailSS"><i class="fa fa-eye"></i></a>
-                                    <a href="#"onclick="edit('{{$p->id}}','{{asset('public/foto_tampilangedung/'.$p->foto_gedung)}}')" class="btn-sm btn-warning" data-toggle="modal" data-target="#ModalEditSS"><i class="fa fa-edit"></i></a>
+                                    <a href="#"  onclick="detail('{{$p->id}}','{{asset('public/bisnisproperti/'.$p->foto)}}')"class="btn-sm btn-success text-white" data-toggle="modal" data-target="#ModalDetailSS"><i class="fa fa-eye"></i></a>
+                                    <a href="#"onclick="edit('{{$p->id}}','{{asset('public/bisnisproperti/'.$p->foto)}}')" class="btn-sm btn-warning" data-toggle="modal" data-target="#ModalEditSS"><i class="fa fa-edit"></i></a>
                                     <a href="#" onclick="hapus('{{$p->id}}')"class="btn-sm btn-danger" data-target="confirmation-modal"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
@@ -71,17 +71,17 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="ModalTambahSSLabel">Tambah Foto Gedung</h5>
+                <h5 class="modal-title" id="ModalTambahSSLabel">Tambah Foto Bisnis Properti</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{url('gedung')}}" method="post" id="tambahfotogedung" enctype="multipart/form-data">
+                <form action="{{url('bisnis')}}" method="post" id="tambahfotogedung" enctype="multipart/form-data">
                     @csrf
 
                     <!-- <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Foto Gedung</label>
+                        <label class="col-sm-3 col-form-label">Foto Bisnis Properti</label>
                         <div class="col-sm-9">
 
                             <div class="form-group form-inline">
@@ -93,6 +93,7 @@
                         </div>
                     </div> -->
 
+                    
                     <div class="form-group row">
                         <!-- <label class="col-sm-3 col-form-label">Foto Beranda Apps</label> -->
                         <div class="col-sm-12">
@@ -329,13 +330,13 @@
         $("#upgedung #editgedung").val(tumbnail)
         $('#editgedung').attr('src', tumbnail);
  
-        $("#upgedung").attr("action","{{url('gedung')}}"+"/"+id)
+        $("#upgedung").attr("action","{{url('bisnis')}}"+"/"+id)
         $("#ModalEditSS").modal("show")
         console.log(tumbnail,id)
     }
     function hapus(id) {
       
-        $("#delete").attr("action","{{url('gedung')}}"+"/"+id)
+        $("#delete").attr("action","{{url('bisnis')}}"+"/"+id)
         $("#hapus").modal("show")
     }
 
